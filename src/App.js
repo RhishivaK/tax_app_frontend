@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';;
+import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginForm from './components/Login';
 
 
 function App() {
