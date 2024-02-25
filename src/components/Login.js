@@ -101,15 +101,12 @@ function LoginForm() {
           <div class="wrap-input100">
             <span class="label-input100">Email: </span>
             <input class="input100" type="text" name="email" placeholder="Enter your email" onChange={handleInputChange}/>
-            <span class="focus-input100" data-symbol="&#xf206;"></span>
+            <span class="focus-input100" data-symbol="&#x2709;"></span>
           </div>
           <div class="wrap-input100">
             <span class="label-input100">Password: </span>
             <input class="input100" type="password" name="password" placeholder="Enter your password" onChange={handleInputChange}/>
             <span class="focus-input100" data-symbol="&#xf190;"></span>
-          </div>
-          <div class="caps-lock-warning">
-            <p>Caps Lock is enabled.</p>
           </div>
           <a href="#" id="for-pass">Forgot Password?</a>
           <div class="wrap-input100">

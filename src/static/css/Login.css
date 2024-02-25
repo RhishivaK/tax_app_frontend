@@ -43,7 +43,7 @@
   }
   
   .login-form {
-    background-color: rgba(126, 187, 176, 0.45);
+    background-color: rgba(48, 65, 76, 0.35);
     padding: 20px;
     border-radius: 10px;
     width: 550px;
@@ -69,9 +69,9 @@
   }
   
   .input100{
-    width: 575px;
+    width: 475px;
     border: none;
-    border-bottom: 2px solid #8d908e;
+    border-bottom: 2px solid #ececec;
     transition: border-color 0.3s;
     outline: none;
     line-height: 1.2;
@@ -80,11 +80,19 @@
     background: transparent;
     padding: 0 6px 0 43px;
   }
-  
-  .input100:focus {
-    border-color: #7EBBB0;
+
+  ::placeholder{
+    color: #ececec;
   }
   
+  .input100:focus {
+    border-color: #30414C;
+  }
+
+  .input100:focus::placeholder {
+    color: #30414C;
+  }
+
   .focus-input100 {
     position: absolute;
     display: block;
@@ -98,9 +106,8 @@
   .focus-input100::after {
     content: attr(data-symbol);
     font-family: Material-Design-Iconic-Font;
-    color: #8d908e;
+    color: #ececec;
     font-size: 22px;
-  
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -139,11 +146,11 @@
   }
   
   .input100:focus + .focus-input100::after {
-    color: #7EBBB0;
+    color: #30414C;
   }
   
   .has-val.input100 + .focus-input100::after {
-    color: #7EBBB0;
+    color: #30414C;
   }
   
   #for-pass{
@@ -151,6 +158,7 @@
     display: block;
     margin-right: 20px;
     font-family: 'Ubuntu', sans-serif;
+    color: #30414C;
   }
   
   .login-btn{
@@ -167,7 +175,7 @@
   }
   
   .login-btn:hover {
-    background-color: #7EBBB0;
+    background-color: #30414C;
     border: 2px solid #070807;
     color: #ffffff;
   }
@@ -190,6 +198,7 @@
 
   #loginlink{
     font-family: 'Ubuntu', sans-serif;
+    color: #30414C;
   }
 
 /* Even smaller screen adjustments */
@@ -224,7 +233,7 @@
   }
   
   .login-form {
-    background-color: rgba(206, 227, 245, 0.45);
+    background-color: rgba(48, 65, 76, 1);
     padding: 20px;
     border-radius: 10px;
     width: 390px;
@@ -250,7 +259,7 @@
   .input100{
     width: 50px;
     border: none;
-    border-bottom: 2px solid #8d908e;
+    border-bottom: 2px solid #ececec;
     transition: border-color 0.3s;
     outline: none;
     line-height: 1.2;
@@ -261,7 +270,7 @@
   }
   
   .input100:focus {
-    border-color: #7EBBB0;
+    border-color: #30414C;
   }
   
   .focus-input100 {
@@ -277,7 +286,7 @@
   .focus-input100::after {
     content: attr(data-symbol);
     font-family: Material-Design-Iconic-Font;
-    color: #8d908e;
+    color: #ececec;
     font-size: 22px;
   
     display: -webkit-box;
@@ -318,11 +327,11 @@
   }
   
   .input100:focus + .focus-input100::after {
-    color: #7EBBB0;
+    color: #30414C;
   }
   
   .has-val.input100 + .focus-input100::after {
-    color: #7EBBB0;
+    color: #30414C;
   }
   
   #for-pass{
@@ -346,7 +355,7 @@
   }
   
   .login-btn:hover {
-    background-color: #7EBBB0;
+    background-color: #30414C;
     border: 2px solid #070807;
     color: #ffffff;
   }
