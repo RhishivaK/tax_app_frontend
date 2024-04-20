@@ -204,21 +204,21 @@
     height: 100%;
     top: 0;
     left: 0;
-    pointer-events: none;
+    /* pointer-events: none; */
   }
 
   .n-focus-input100 {
     position: absolute;
     display: block;
     height: 30px;
-    pointer-events: none;
+    /* pointer-events: none; */
   }
 
   .ph-focus-input100 {
     position: absolute;
     display: block;
     height: 30px;
-    pointer-events: none;
+    /* pointer-events: none; */
   }
   
   .focus-input100::after {
