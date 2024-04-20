@@ -14,10 +14,11 @@ import {
 import { authAxios } from "../../../plugins/axios";
 import { toast } from "react-toastify";
 import { errorToast, successToast } from "../../../components/common/toast";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export default function UserUpdateForm() {
   const params = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     first_name: "",
     last_name: "",
@@ -31,9 +32,10 @@ export default function UserUpdateForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .put("/users/", formData)
+      .put(`/users/${formData.id}/`, formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
+        navigate("/dashboard/users");
       })
       .catch((err) => {
         toast("Couldn't create user", errorToast);
@@ -45,11 +47,14 @@ export default function UserUpdateForm() {
   };
 
   React.useEffect(() => {
-    authAxios.get(`/users/${params.id}`).then(res => {
-      setFormData(res?.data?.data);
-    }).catch(_ => {
-      toast("Couldn't fetch the user", errorToast);
-    });
+    authAxios
+      .get(`/users/${params.id}`)
+      .then((res) => {
+        setFormData(res?.data?.data);
+      })
+      .catch((_) => {
+        toast("Couldn't fetch the user", errorToast);
+      });
   }, [params]);
 
   return (
@@ -130,7 +135,11 @@ export default function UserUpdateForm() {
             <Col md={6} className="mb-3">
               <Form.Group>
                 <Form.Label>Gender</Form.Label>
-                <Form.Select onChange={handleChange} name="gender" value={formData.gender}>
+                <Form.Select
+                  onChange={handleChange}
+                  name="gender"
+                  value={formData.gender}
+                >
                   <option value="1">Female</option>
                   <option value="2">Male</option>
                 </Form.Select>
@@ -196,7 +205,11 @@ export default function UserUpdateForm() {
             <Col md={6} className="mb-3">
               <Form.Group>
                 <Form.Label>Maritial Status</Form.Label>
-                <Form.Select onChange={handleChange} name="maritial_status" value={formData.maritial_status}>
+                <Form.Select
+                  onChange={handleChange}
+                  name="maritial_status"
+                  value={formData.maritial_status}
+                >
                   <option value="unmarried">Unmarried</option>
                   <option value="married">Married</option>
                   <option value="divorced">Divorced</option>
