@@ -31,12 +31,11 @@ export default function UserUpdateForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/users/", formData)
+      .put("/users/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
       })
       .catch((err) => {
-        console.log(err);
         toast("Couldn't create user", errorToast);
       });
   };
@@ -175,6 +174,7 @@ export default function UserUpdateForm() {
                   type="text"
                   name="pan"
                   onChange={handleChange}
+                  value={formData.pan}
                   placeholder="3434**343"
                 />
               </Form.Group>

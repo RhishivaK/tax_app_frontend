@@ -8,10 +8,9 @@ import {
   faFileAlt,
   faHandHoldingUsd,
   faSignOutAlt,
-  faTable,
   faTimes,
   faCalendarAlt,
-  faMapPin,
+  // faMapPin,
   faInbox,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -28,13 +27,17 @@ import { Link } from "react-router-dom";
 import ReactHero from "../assets/img/technologies/react-hero-logo.svg";
 import ProfilePicture from "../assets/img/team/profile-picture-3.jpg";
 
+import { useUserInfo } from "../context/UserInfo";
+
 export default function Sidebar(props = {}) {
   const location = useLocation();
   const { pathname } = location;
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const showClass = show ? "show" : "";
 
   const onCollapse = () => setShow(!show);
+
+  const userInfo = useUserInfo();
 
   const CollapsableNavItem = (props) => {
     const { eventKey, title, icon, children = null } = props;
@@ -118,7 +121,7 @@ export default function Sidebar(props = {}) {
   return (
     <>
       <Navbar
-        expand={false}
+        expand={true}
         collapseOnSelect
         variant="dark"
         className="navbar-theme-primary px-4 d-md-none"
@@ -138,7 +141,7 @@ export default function Sidebar(props = {}) {
         <SimpleBar
           className={`collapse ${showClass} sidebar d-md-block bg-primary text-white`}
         >
-          <div className="sidebar-inner px-4 pt-3">
+          <div className="sidebar-inner px-3 pt-3">
             <div className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
               <div className="d-flex align-items-center">
                 <div className="user-avatar lg-avatar me-4">
@@ -148,7 +151,7 @@ export default function Sidebar(props = {}) {
                   />
                 </div>
                 <div className="d-block">
-                  <h6>Hi, Jane</h6>
+                  <h6>Hi, {userInfo.first_name}</h6>
                   <Button
                     as={Link}
                     variant="secondary"
@@ -173,11 +176,6 @@ export default function Sidebar(props = {}) {
                 title="Tax Application"
                 link={"/dashboard"}
                 image={ReactHero}
-              />
-              <NavItem
-                title="Income Tax"
-                icon={faHandHoldingUsd}
-                link={"/dashboard/income-tax"}
               />
               <NavItem
                 title="Transactions"
@@ -206,27 +204,35 @@ export default function Sidebar(props = {}) {
                 // badgeText="Pro"
                 icon={faCalendarAlt}
               />
-              <NavItem
+              {/* <NavItem
                 external
                 title="Map"
                 link="#map"
                 target="_blank"
                 // badgeText="Pro"
                 icon={faMapPin}
-              />
-
+              /> */}
               <CollapsableNavItem
-                eventKey="tables/"
-                title="Tables"
-                icon={faTable}
+                eventKey="income-tax/"
+                title="Income Tax"
+                icon={faFileAlt}
               >
-                <NavItem
-                  title="Bootstrap Table"
-                  link={"/tables/bootstrap-tables"}
-                />
+                <NavItem title="Policies" link={"income-tax/policy"} />
+                <NavItem title="Records" link={"income-tax/records"} />
+                <NavItem title="Transactions" link={"income-tax/transactions"} />
+                <NavItem title="Users" link={"income-tax/users"} />
               </CollapsableNavItem>
-
               <CollapsableNavItem
+                eventKey="corporate-tax/"
+                title="Corporate Tax"
+                icon={faFileAlt}
+              >
+                <NavItem title="Policies" link={"corporate-tax/policy"} />
+                <NavItem title="Records" link={"corporate-tax/records"} />
+                <NavItem title="Transactions" link={"corporate-tax/transactions"} />
+                <NavItem title="Users" link={"corporate-tax/users"} />
+              </CollapsableNavItem>
+               {/* <CollapsableNavItem
                 eventKey="examples/"
                 title="Page Examples"
                 icon={faFileAlt}
@@ -235,8 +241,7 @@ export default function Sidebar(props = {}) {
                 <NavItem title="Sign Up" link={"/signup"} />
                 <NavItem title="Forgot password" link={"/forgot-password"} />
                 <NavItem title="Reset password" link={"/reset-password"} />
-              </CollapsableNavItem>
-
+              </CollapsableNavItem> */}
               <Dropdown.Divider className="my-3 border-indigo" />
             </Nav>
           </div>

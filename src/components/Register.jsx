@@ -45,7 +45,7 @@ export default function Registerform(){
             toast('Please fill in all fields.', errorToast);
             return;
           }
-          if (formData.password != passData.password2) {
+          if (formData.password !== passData.password2) {
               toast('The passwords do not match!', errorToast);
               return;
           }

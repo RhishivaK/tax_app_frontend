@@ -1,20 +1,20 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCashRegister,
   faChartLine,
-  faCloudUploadAlt,
-  faPlus,
-  faRocket,
-  faTasks,
-  faUserShield,
+  // faCloudUploadAlt,
+  // faPlus,
+  // faRocket,
+  // faTasks,
+  // faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   Col,
   Row,
-  Button,
-  Dropdown,
-  ButtonGroup,
+  // Button,
+  // Dropdown,
+  // ButtonGroup,
 } from "@themesberg/react-bootstrap";
 import {
   CounterWidget,
@@ -25,12 +25,12 @@ import {
   SalesValueWidgetPhone,
   AcquisitionWidget,
 } from "../../components/Widgets";
-import { PageVisitsTable } from "../../components/Tables";
+// import { PageVisitsTable } from "../../components/Tables";
 
 export default function Dashboard() {
   return (
     <>
-      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+      {/* <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
         <Dropdown className="btn-toolbar">
           <Dropdown.Toggle
             as={Button}
@@ -68,11 +68,11 @@ export default function Dashboard() {
             Export
           </Button>
         </ButtonGroup>
-      </div>
+      </div> */}
       <Row className="justify-content-md-center">
         <Col xs={12} className="mb-4 d-none d-sm-block">
           <SalesValueWidget
-            title="Sales Value"
+            title="Tax Collection"
             value="10,567"
             percentage={10.57}
           />
@@ -80,7 +80,7 @@ export default function Dashboard() {
         <Col xs={12} className="mb-4 d-sm-none">
           <SalesValueWidgetPhone
             title="Sales Value"
-            value="10,567"
+            value="3,34,10,567"
             percentage={10.57}
           />
         </Col>
@@ -96,8 +96,8 @@ export default function Dashboard() {
         </Col>
         <Col xs={12} sm={6} xl={4} className="mb-4">
           <CounterWidget
-            category="Revenue"
-            title="$43,594"
+            category="Corporate Tax"
+            title="Rs. 43,43,594"
             period="Feb 1 - Apr 1"
             percentage={28.4}
             icon={faCashRegister}
@@ -110,9 +110,9 @@ export default function Dashboard() {
           <Row>
             <Col xs={12} xl={8} className="mb-4">
               <Row>
-                <Col xs={12} className="mb-4">
+                {/* <Col xs={12} className="mb-4">
                   <PageVisitsTable />
-                </Col>
+                </Col> */}
 
                 <Col xs={12} lg={6} className="mb-4">
                   <TeamMembersWidget />
