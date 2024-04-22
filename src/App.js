@@ -46,7 +46,7 @@ function App() {
                 <PrivateRoutes />
               </UserInfoProvider>
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/auth/login" />
             )
           }
         />
