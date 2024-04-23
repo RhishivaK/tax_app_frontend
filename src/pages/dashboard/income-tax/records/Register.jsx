@@ -11,13 +11,11 @@ import {
   Button,
   InputGroup,
 } from "@themesberg/react-bootstrap";
-import { authAxios } from "../../../plugins/axios";
+import { authAxios } from "../../../../plugins/axios";
 import { toast } from "react-toastify";
-import { errorToast, successToast } from "../../../components/common/toast";
-import { useParams } from "react-router";
+import { errorToast, successToast } from "../../../../components/common/toast";
 
-export default function UserUpdateForm() {
-  const params = useParams();
+export default function IncomeTaxPolicyRegistration() {
   const [formData, setFormData] = React.useState({
     first_name: "",
     last_name: "",
@@ -31,13 +29,13 @@ export default function UserUpdateForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/users/", formData)
+      .post("/income-tax/policy/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
       })
       .catch((err) => {
         console.log(err);
-        toast("Couldn't create user", errorToast);
+        toast("Couldn't create policy", errorToast);
       });
   };
 
@@ -45,18 +43,10 @@ export default function UserUpdateForm() {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  React.useEffect(() => {
-    authAxios.get(`/users/${params.id}`).then(res => {
-      setFormData(res?.data?.data);
-    }).catch(_ => {
-      toast("Couldn't fetch the user", errorToast);
-    });
-  }, [params]);
-
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">User Update Form</h5>
+        <h5 className="mb-4">Income Tax Policies Information</h5>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="mb-3">
@@ -66,9 +56,8 @@ export default function UserUpdateForm() {
                   required
                   onChange={handleChange}
                   name="first_name"
-                  value={formData.first_name}
                   type="text"
-                  placeholder="Enter irst name"
+                  placeholder="Enter first name"
                 />
               </Form.Group>
             </Col>
@@ -79,7 +68,6 @@ export default function UserUpdateForm() {
                   required
                   onChange={handleChange}
                   name="middle_name"
-                  value={formData.middle_name}
                   type="text"
                   placeholder="Middle Name (If any)"
                 />
@@ -91,7 +79,6 @@ export default function UserUpdateForm() {
                 <Form.Control
                   required
                   name="last_name"
-                  value={formData.last_name}
                   onChange={handleChange}
                   type="text"
                   placeholder="Enter last name"
@@ -129,9 +116,10 @@ export default function UserUpdateForm() {
               </Form.Group>
             </Col>
             <Col md={6} className="mb-3">
-              <Form.Group>
+              <Form.Group id="gender">
                 <Form.Label>Gender</Form.Label>
-                <Form.Select onChange={handleChange} name="gender" value={formData.gender}>
+                <Form.Select defaultValue="0">
+                  <option value="0">Gender</option>
                   <option value="1">Female</option>
                   <option value="2">Male</option>
                 </Form.Select>
@@ -146,7 +134,6 @@ export default function UserUpdateForm() {
                   required
                   type="email"
                   name="email"
-                  value={formData.email}
                   onChange={handleChange}
                   placeholder="name@example.com"
                 />
@@ -159,7 +146,6 @@ export default function UserUpdateForm() {
                   required
                   type="text"
                   name="phone"
-                  value={formData.phone}
                   onChange={handleChange}
                   placeholder="9800000000"
                 />
@@ -179,12 +165,24 @@ export default function UserUpdateForm() {
                 />
               </Form.Group>
             </Col>
+            <Col md={6} className="mb-3">
+              <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  required
+                  type="password"
+                  name="password"
+                  onChange={handleChange}
+                  placeholder="User Password"
+                />
+              </Form.Group>
+            </Col>
           </Row>
           <Row className="align-items-center">
             <Col md={6} className="mb-3">
               <Form.Group>
                 <Form.Label>Maritial Status</Form.Label>
-                <Form.Select onChange={handleChange} name="maritial_status" value={formData.maritial_status}>
+                <Form.Select onChange={handleChange} name="maritial_status">
                   <option value="unmarried">Unmarried</option>
                   <option value="married">Married</option>
                   <option value="divorced">Divorced</option>
@@ -226,7 +224,7 @@ export default function UserUpdateForm() {
             <Col sm={6} className="mb-3">
               <Form.Group className="mb-2">
                 <Form.Label>Select Provinces</Form.Label>
-                <Form.Select name="province" value={formData.province}>
+                <Form.Select name="province" defaultValue="bagmati">
                   <option value="koshi">Koshi</option>
                   <option value="madesh">Madhesh</option>
                   <option value="bagmati">Bagmati</option>
@@ -246,7 +244,7 @@ export default function UserUpdateForm() {
           </Row>
           <div className="mt-3">
             <Button variant="primary" type="submit">
-              Update
+              Save
             </Button>
           </div>
         </Form>

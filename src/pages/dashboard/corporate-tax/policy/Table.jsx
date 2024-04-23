@@ -23,64 +23,48 @@ import {
   ButtonGroup,
 } from "@themesberg/react-bootstrap";
 import { Link } from "react-router-dom";
-import { authAxios } from "../../../plugins/axios";
-import { toast } from "react-toastify";
-import { errorToast, successToast } from "../../../components/common/toast";
+import { authAxios } from "../../../../plugins/axios";
 
-export default function UsersTable(props) {
+export default function IncomeTaxPolicyTable(props) {
   const [total, setTotal] = React.useState(0);
-  const [users, setUsers] = React.useState([]);
-  const [search, setSearch] = React.useState("");
+  const [users, setUsers] = React.useState([
+    {
+      'fiscal_year': '2079/80',
+      'initiate_date': '2022-07-15T23:59:59.839062',
+      'created_at': '2022-06-23T15:47:03.839062'
+    },
+    {
+      'fiscal_year': '2080/81',
+      'initiate_date': '2023-07-15T23:59:59.839062',
+      'created_at': '2023-06-23T10:47:03.839062'
+    },
+    {
+      'fiscal_year': '2081/82',
+      'initiate_date': '2024-07-15T23:59:59.839062',
+      'created_at': '2024-06-23T22:47:03.839062'
+    }
+  ]);
   const TableRow = (props) => {
     const {
       index,
-      first_name,
-      middle_name,
-      last_name,
-      pan,
-      email,
-      phone,
-      role,
-      maritial_status,
-      last_login,
+      fiscal_year,
+      initiate_date,
+      created_at,
     } = props;
-    const roleVariant =
-      role === "general"
-        ? "success"
-        : role === "officer"
-        ? "warning"
-        : role === "super_admin"
-        ? "danger"
-        : "primary";
-
     return (
       <tr>
         <td>{index}</td>
         <td>
           <Card.Link as={Link} to={"/"} className="fw-normal">
-            {`${first_name} ${middle_name || ""} ${last_name}`}
+            {fiscal_year}
           </Card.Link>
         </td>
 
         <td>
-          <span className="fw-normal">{pan}</span>
+          <span className="fw-normal">{new Date(initiate_date).toLocaleString()}</span>
         </td>
         <td>
-          <span className="fw-normal">{email}</span>
-        </td>
-        <td>
-          <span className="fw-normal">{phone}</span>
-        </td>
-        <td>
-          <span className={`fw-normal`}>{maritial_status}</span>
-        </td>
-        <td>
-          <span className={`fw-normal text-${roleVariant}`}>{role}</span>
-        </td>
-        <td>
-          <span className={`fw-normal`}>
-            {new Date(last_login).toLocaleString()}
-          </span>
+          <span className="fw-normal">{new Date(created_at).toLocaleString()}</span>
         </td>
         <td>
           <Dropdown as={ButtonGroup}>
@@ -98,23 +82,12 @@ export default function UsersTable(props) {
               <Dropdown.Item>
                 <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
               </Dropdown.Item>
-              <Dropdown.Item href={`users/update/${props.id}`}>
+              <Dropdown.Item
+                href={`income-tax/policy/update/${props.id}`}
+              >
                 <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
               </Dropdown.Item>
-              <Dropdown.Item
-                className="text-danger"
-                onClick={() => {
-                  authAxios
-                    .delete(`/users/${props.id}`)
-                    .then((res) => {
-                      loadUsers();
-                      toast("user deleted", successToast);
-                    })
-                    .catch((err) => {
-                      toast("Couldn't delete the user", errorToast);
-                    });
-                }}
-              >
+              <Dropdown.Item className="text-danger">
                 <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -124,63 +97,50 @@ export default function UsersTable(props) {
     );
   };
 
-  const getUsers = React.useCallback(async (search = "") => {
+  const getIncomeTaxPolicies = React.useCallback(async () => {
     return await authAxios
-      .get(`/users/list?q=${search}`)
+      .get("/income-tax/policy/list")
       .then((res) => {
         return res.data;
       })
       .catch((_) => {
-        return {};
+        return [];
       });
-  }, []);
+  }, []);;
 
-  const loadUsers = React.useCallback(
-    async (search = "") => {
-      const data = await getUsers(search);
-      setUsers(data.results);
-      setTotal(data.total);
-    },
-    [getUsers, setUsers, setTotal]
-  );
+  const loadIncomeTaxPolicies = React.useCallback(async () => {
+    // const data = await getUsers();
+    // setUsers(data.);
+    // setTotal(data.total);
+  }, [getIncomeTaxPolicies, setUsers, setTotal]);
 
   React.useEffect(() => {
-    loadUsers();
-  }, [loadUsers]);
-
-  const handleSearch = (event) => {
-    event.preventDefault();
-    loadUsers(search);
-  };
+    loadIncomeTaxPolicies();
+  }, [loadIncomeTaxPolicies]);
 
   return (
     <>
       <div className="table-settings mb-4">
         <Row className="justify-content-between align-items-center">
           <Col xs={8} md={6} lg={3} xl={4}>
-            <Form onSubmit={handleSearch}>
-              <InputGroup>
-                <InputGroup.Text>
-                  <FontAwesomeIcon icon={faSearch} />
-                </InputGroup.Text>
-                <Form.Control
-                  type="text"
-                  placeholder="Search"
-                  onChange={(event) => {
-                    setSearch(event.target.value);
-                  }}
-                />
-              </InputGroup>
-            </Form>
+            <InputGroup>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faSearch} />
+              </InputGroup.Text>
+              <Form.Control type="text" placeholder="Search" />
+            </InputGroup>
           </Col>
 
           <Col xs={4} md={2} xl={1} className="ps-md-0 text-end">
             <Button
               variant="primary"
               className="mb-3 w-100"
-              href="users/register"
+              href="/policy/register"
+              style={{
+                fontSize: '16px'
+              }}
             >
-              <FontAwesomeIcon icon={faPlus} /> New User
+              <FontAwesomeIcon icon={faPlus} /> New Policy
             </Button>
           </Col>
         </Row>
@@ -191,20 +151,16 @@ export default function UsersTable(props) {
             <thead>
               <tr>
                 <th className="border-bottom">#</th>
-                <th className="border-bottom">Name</th>
-                <th className="border-bottom">PAN</th>
-                <th className="border-bottom">Email</th>
-                <th className="border-bottom">Phone</th>
-                <th className="border-bottom">Status</th>
-                <th className="border-bottom">Role</th>
-                <th className="border-bottom">Last Login</th>
+                <th className="border-bottom">Fiscal Year</th>
+                <th className="border-bottom">Initiate Date</th>
+                <th className="border-bottom">Created At</th>
                 <th className="border-bottom">Action</th>
               </tr>
             </thead>
             <tbody>
               {users.map((t, index) => (
                 <TableRow
-                  key={`user-${index}`}
+                  key={`income-tax-${index}`}
                   {...t}
                   index={index + 1}
                   handleActionsClick={props.handleActionsClick}

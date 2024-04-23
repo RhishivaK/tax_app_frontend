@@ -4,14 +4,13 @@ import { useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCog,
-  faFileAlt,
-  faHandHoldingUsd,
   faSignOutAlt,
   faTimes,
-  faCalendarAlt,
-  // faMapPin,
-  faInbox,
+  faCar,
+  faBuilding,
+  faMoneyBill,
+  faUser,
+  faFileInvoice,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   Nav,
@@ -179,69 +178,38 @@ export default function Sidebar(props = {}) {
               />
               <NavItem
                 title="Transactions"
-                icon={faHandHoldingUsd}
+                icon={faFileInvoice}
                 link={"/dashboard/transactions"}
               />
               <NavItem
                 title="Users"
-                icon={faHandHoldingUsd}
+                icon={faUser}
                 link={"/dashboard/users"}
               />
-              <NavItem
-                external
-                title="Messages"
-                link="https://demo.themesberg.com/volt-pro-react/#/messages"
-                target="_blank"
-                // badgeText="Pro"
-                icon={faInbox}
-              />
-              <NavItem title="Settings" icon={faCog} link={"/settings"} />
-              <NavItem
-                external
-                title="Calendar"
-                link="#calendar"
-                target="_blank"
-                // badgeText="Pro"
-                icon={faCalendarAlt}
-              />
-              {/* <NavItem
-                external
-                title="Map"
-                link="#map"
-                target="_blank"
-                // badgeText="Pro"
-                icon={faMapPin}
-              /> */}
+              {/* <NavItem title="Settings" icon={faCog} link={"/settings"} /> */}
               <CollapsableNavItem
                 eventKey="income-tax/"
                 title="Income Tax"
-                icon={faFileAlt}
+                icon={faMoneyBill}
               >
                 <NavItem title="Policies" link={"income-tax/policy"} />
                 <NavItem title="Records" link={"income-tax/records"} />
-                <NavItem title="Transactions" link={"income-tax/transactions"} />
-                <NavItem title="Users" link={"income-tax/users"} />
               </CollapsableNavItem>
               <CollapsableNavItem
                 eventKey="corporate-tax/"
                 title="Corporate Tax"
-                icon={faFileAlt}
+                icon={faBuilding}
               >
                 <NavItem title="Policies" link={"corporate-tax/policy"} />
                 <NavItem title="Records" link={"corporate-tax/records"} />
-                <NavItem title="Transactions" link={"corporate-tax/transactions"} />
-                <NavItem title="Users" link={"corporate-tax/users"} />
               </CollapsableNavItem>
-               {/* <CollapsableNavItem
-                eventKey="examples/"
-                title="Page Examples"
-                icon={faFileAlt}
+              <CollapsableNavItem
+                title="Vehicle Tax"
+                icon={faCar}
               >
-                <NavItem title="Sign In" link={"/login"} />
-                <NavItem title="Sign Up" link={"/signup"} />
-                <NavItem title="Forgot password" link={"/forgot-password"} />
-                <NavItem title="Reset password" link={"/reset-password"} />
-              </CollapsableNavItem> */}
+                <NavItem title="Policies" link={"vehicle-tax/policy"} />
+                <NavItem title="Records" link={"vehicle-tax/records"} />
+              </CollapsableNavItem>
               <Dropdown.Divider className="my-3 border-indigo" />
             </Nav>
           </div>

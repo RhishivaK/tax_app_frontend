@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes, Outlet } from "react-router-dom";
 import Dashboard from "./dashboard";
-import IncomeTax from "./IncomeTax";
 import BusinessPage from "../components/BusinessPage";
 import Transactions from "./Transactions";
 import Settings from "./Settings";
@@ -11,6 +10,7 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Preloader from "../components/Preloader";
+import IncomeTaxRoutes from "./dashboard/income-tax/routes";
 
 export default function DashboardRoutes() {
   return (
@@ -29,10 +29,10 @@ export default function DashboardRoutes() {
         }
       >
         <Route exact path={"/"} element={<Dashboard />} />
-        <Route exact path={"/business"} element={<BusinessPage />} />
-        <Route exact path={"/income-tax"} element={<IncomeTax />} />
         <Route exact path={"/transactions"} element={<Transactions />} />
         <Route path={"/users/*"} element={<UserRoutes />} />
+        <Route path={"/income-tax/*"} element={<IncomeTaxRoutes />} />
+        <Route path={"/corporate-tax/*"} element={<IncomeTaxRoutes />} />
         <Route exact path={"/settings"} element={<Settings />} />
       </Route>
     </Routes>

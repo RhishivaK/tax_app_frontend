@@ -72,7 +72,7 @@ export default function UserUpdateForm() {
                   name="first_name"
                   value={formData.first_name}
                   type="text"
-                  placeholder="Enter irst name"
+                  placeholder="Enter first name"
                 />
               </Form.Group>
             </Col>
@@ -80,7 +80,6 @@ export default function UserUpdateForm() {
               <Form.Group>
                 <Form.Label>Middle Name</Form.Label>
                 <Form.Control
-                  required
                   onChange={handleChange}
                   name="middle_name"
                   value={formData.middle_name}
@@ -106,29 +105,14 @@ export default function UserUpdateForm() {
           <Row className="align-items-center">
             <Col md={6} className="mb-3">
               <Form.Group>
-                <Form.Label>Date Of Birth</Form.Label>
-                <Datetime
-                  timeFormat={false}
-                  // onChange={handleChange}
-                  renderInput={(props, openCalendar) => (
-                    <InputGroup>
-                      <InputGroup.Text>
-                        <FontAwesomeIcon icon={faCalendarAlt} />
-                      </InputGroup.Text>
-                      <Form.Control
-                        // required
-                        type="text"
-                        value={
-                          formData.dob
-                            ? moment(formData.dob).format("MM/DD/YYYY")
-                            : ""
-                        }
-                        placeholder="mm/dd/yyyy"
-                        onFocus={openCalendar}
-                        onChange={() => {}}
-                      />
-                    </InputGroup>
-                  )}
+                <Form.Label>Pan Number</Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  name="pan"
+                  onChange={handleChange}
+                  value={formData.pan}
+                  placeholder="3434**343"
                 />
               </Form.Group>
             </Col>
@@ -154,6 +138,7 @@ export default function UserUpdateForm() {
                   required
                   type="email"
                   name="email"
+                  disabled
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="name@example.com"
@@ -173,33 +158,6 @@ export default function UserUpdateForm() {
                 />
               </Form.Group>
             </Col>
-          </Row>
-          <Row>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Pan Number</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  name="pan"
-                  onChange={handleChange}
-                  value={formData.pan}
-                  placeholder="3434**343"
-                />
-              </Form.Group>
-            </Col>
-            {/* <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  placeholder="User Password"
-                />
-              </Form.Group>
-            </Col> */}
           </Row>
           <Row className="align-items-center">
             <Col md={6} className="mb-3">
@@ -230,7 +188,7 @@ export default function UserUpdateForm() {
 
           <h5 className="my-4">Address</h5>
           <Row>
-            <Col sm={6} className="mb-3">
+            <Col sm={12} className="mb-3">
               <Form.Group id="address">
                 <Form.Label>Address</Form.Label>
                 <Form.Control
@@ -240,14 +198,14 @@ export default function UserUpdateForm() {
                 />
               </Form.Group>
             </Col>
-            <Col sm={6} className="mb-3">
+          </Row>
+          <Row>
+          <Col sm={6} className="mb-3">
               <Form.Group id="city">
                 <Form.Label>City</Form.Label>
                 <Form.Control required type="text" placeholder="City" />
               </Form.Group>
             </Col>
-          </Row>
-          <Row>
             <Col sm={6} className="mb-3">
               <Form.Group className="mb-2">
                 <Form.Label>Select Provinces</Form.Label>
@@ -260,12 +218,6 @@ export default function UserUpdateForm() {
                   <option value="karnali">Karnali</option>
                   <option value="sudurpashchim">Sudurpashchim</option>
                 </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col sm={6}>
-              <Form.Group id="zip">
-                <Form.Label>ZIP</Form.Label>
-                <Form.Control required type="tel" placeholder="ZIP" />
               </Form.Group>
             </Col>
           </Row>

@@ -12,11 +12,11 @@ export default function Footer(props) {
 
   return (
     <div>
-      <footer className="footer section py-5">
+      <footer className="footer section py-3">
         <Row>
-          <Col xs={12} lg={6} className="mb-4 mb-lg-0">
+          <Col xs={12} lg={6} className="mb-2 mb-lg-0">
             <p className="mb-0 text-center text-xl-left">
-              Copyright © 2024-{`${currentYear} `}
+              Copyright © 2024-{`${currentYear+1} `}
               <Card.Link
                 href="https://themesberg.com"
                 target="_blank"

@@ -1,19 +1,21 @@
 import React from "react";
-
+import moment from "moment";
+import Datetime from "react-datetime";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import {
   Col,
   Row,
   Card,
   Form,
   Button,
+  InputGroup,
 } from "@themesberg/react-bootstrap";
-import { authAxios } from "../../../plugins/axios";
+import { authAxios } from "../../../../plugins/axios";
 import { toast } from "react-toastify";
-import { errorToast, successToast } from "../../../components/common/toast";
-import { useNavigate } from "react-router";
+import { errorToast, successToast } from "../../../../components/common/toast";
 
-export default function UserRegistrationForm() {
-  const navigate = useNavigate();
+export default function IncomeTaxPolicyRegistration() {
   const [formData, setFormData] = React.useState({
     first_name: "",
     last_name: "",
@@ -27,14 +29,13 @@ export default function UserRegistrationForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/users/", formData)
+      .post("/income-tax/policy/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
-        navigate('/dashboard/users');
       })
       .catch((err) => {
         console.log(err);
-        toast("Couldn't create user", errorToast);
+        toast("Couldn't create policy", errorToast);
       });
   };
 
@@ -45,7 +46,7 @@ export default function UserRegistrationForm() {
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">User Information</h5>
+        <h5 className="mb-4">Income Tax Policies Information</h5>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="mb-3">
@@ -64,6 +65,7 @@ export default function UserRegistrationForm() {
               <Form.Group>
                 <Form.Label>Middle Name</Form.Label>
                 <Form.Control
+                  required
                   onChange={handleChange}
                   name="middle_name"
                   type="text"
@@ -85,7 +87,7 @@ export default function UserRegistrationForm() {
             </Col>
           </Row>
           <Row className="align-items-center">
-          <Col md={6} className="mb-3">
+            <Col md={6} className="mb-3">
               <Form.Group>
                 <Form.Label>Pan Number</Form.Label>
                 <Form.Control
@@ -98,10 +100,10 @@ export default function UserRegistrationForm() {
               </Form.Group>
             </Col>
             <Col md={6} className="mb-3">
-              <Form.Group>
+              <Form.Group id="gender">
                 <Form.Label>Gender</Form.Label>
                 <Form.Select defaultValue="0">
-                  <option value="0" disabled>Gender</option>
+                  <option value="0">Gender</option>
                   <option value="1">Female</option>
                   <option value="2">Male</option>
                 </Form.Select>
@@ -147,18 +149,6 @@ export default function UserRegistrationForm() {
                 />
               </Form.Group>
             </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Reset Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  name="reset-password"
-                  onChange={handleChange}
-                  placeholder="User Password"
-                />
-              </Form.Group>
-            </Col>
           </Row>
           <Row className="align-items-center">
             <Col md={6} className="mb-3">
@@ -185,7 +175,7 @@ export default function UserRegistrationForm() {
 
           <h5 className="my-4">Address</h5>
           <Row>
-            <Col sm={12} className="mb-3">
+            <Col sm={6} className="mb-3">
               <Form.Group id="address">
                 <Form.Label>Address</Form.Label>
                 <Form.Control
@@ -195,14 +185,14 @@ export default function UserRegistrationForm() {
                 />
               </Form.Group>
             </Col>
-          </Row>
-          <Row>
-          <Col sm={6} className="mb-3">
+            <Col sm={6} className="mb-3">
               <Form.Group id="city">
                 <Form.Label>City</Form.Label>
                 <Form.Control required type="text" placeholder="City" />
               </Form.Group>
             </Col>
+          </Row>
+          <Row>
             <Col sm={6} className="mb-3">
               <Form.Group className="mb-2">
                 <Form.Label>Select Provinces</Form.Label>
@@ -215,6 +205,12 @@ export default function UserRegistrationForm() {
                   <option value="karnali">Karnali</option>
                   <option value="sudurpashchim">Sudurpashchim</option>
                 </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col sm={6}>
+              <Form.Group id="zip">
+                <Form.Label>ZIP</Form.Label>
+                <Form.Control required type="tel" placeholder="ZIP" />
               </Form.Group>
             </Col>
           </Row>

@@ -11,11 +11,11 @@ import {
   Button,
   InputGroup,
 } from "@themesberg/react-bootstrap";
-import { authAxios } from "../../../plugins/axios";
+import { authAxios } from "../../../../plugins/axios";
 import { toast } from "react-toastify";
-import { errorToast, successToast } from "../../../components/common/toast";
+import { errorToast, successToast } from "../../../../components/common/toast";
 
-export default function UserRegistrationForm() {
+export default function IncomeTaxPolicyRegistration() {
   const [formData, setFormData] = React.useState({
     first_name: "",
     last_name: "",
@@ -29,13 +29,13 @@ export default function UserRegistrationForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/users/", formData)
+      .post("/income-tax/policy/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
       })
       .catch((err) => {
         console.log(err);
-        toast("Couldn't create user", errorToast);
+        toast("Couldn't create policy", errorToast);
       });
   };
 
@@ -46,7 +46,7 @@ export default function UserRegistrationForm() {
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">User Information</h5>
+        <h5 className="mb-4">Income Tax Policies Information</h5>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="mb-3">
@@ -57,7 +57,7 @@ export default function UserRegistrationForm() {
                   onChange={handleChange}
                   name="first_name"
                   type="text"
-                  placeholder="Enter irst name"
+                  placeholder="Enter first name"
                 />
               </Form.Group>
             </Col>

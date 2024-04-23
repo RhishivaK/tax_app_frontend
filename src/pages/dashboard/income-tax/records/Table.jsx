@@ -23,63 +23,73 @@ import {
   ButtonGroup,
 } from "@themesberg/react-bootstrap";
 import { Link } from "react-router-dom";
-import { authAxios } from "../../../plugins/axios";
-import { toast } from "react-toastify";
-import { errorToast, successToast } from "../../../components/common/toast";
+import { authAxios } from "../../../../plugins/axios";
 
-export default function UsersTable(props) {
-  const [total, setTotal] = React.useState(0);
-  const [users, setUsers] = React.useState([]);
-  const [search, setSearch] = React.useState("");
+export default function IncomeTaxPolicyTable(props) {
+  const [total, setTotal] = React.useState(1);
+  const [records, setRecords] = React.useState([
+    {
+      name: "Shrishak Bhattarai",
+      pan: "92392023",
+      maritial_status: "Unmarried",
+      fiscal_year: "2079/80",
+      calculated_date: "2022-06-23T15:47:03.839062",
+      annual_amount: 492392,
+      tax_amount: 201717.6,
+      status: "paid",
+    },
+  ]);
   const TableRow = (props) => {
-    const {
-      index,
-      first_name,
-      middle_name,
-      last_name,
-      pan,
-      email,
-      phone,
-      role,
-      maritial_status,
-      last_login,
-    } = props;
-    const roleVariant =
-      role === "general"
+    const { index, name, pan, maritial_status, fiscal_year, calculated_date, annual_amount, tax_amount, status } = props;
+    const statusVariant =
+      status === "paid"
         ? "success"
-        : role === "officer"
+        : status === "pending"
         ? "warning"
-        : role === "super_admin"
+        : status === "cancelled"
         ? "danger"
         : "primary";
-
     return (
       <tr>
         <td>{index}</td>
         <td>
+          <span className="fw-normal">
+            {name}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {pan}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {maritial_status}
+          </span>
+        </td>
+        <td>
           <Card.Link as={Link} to={"/"} className="fw-normal">
-            {`${first_name} ${middle_name || ""} ${last_name}`}
+            {fiscal_year}
           </Card.Link>
         </td>
-
         <td>
-          <span className="fw-normal">{pan}</span>
+          <span className="fw-normal">
+            {new Date(calculated_date).toLocaleString()}
+          </span>
         </td>
         <td>
-          <span className="fw-normal">{email}</span>
+          <span className="fw-normal">
+            {annual_amount}
+          </span>
         </td>
         <td>
-          <span className="fw-normal">{phone}</span>
+          <span className="fw-normal">
+            {tax_amount}
+          </span>
         </td>
         <td>
-          <span className={`fw-normal`}>{maritial_status}</span>
-        </td>
-        <td>
-          <span className={`fw-normal text-${roleVariant}`}>{role}</span>
-        </td>
-        <td>
-          <span className={`fw-normal`}>
-            {new Date(last_login).toLocaleString()}
+          <span className={`fw-normal text-${statusVariant}`}>
+            {status.toUpperCase()}
           </span>
         </td>
         <td>
@@ -98,23 +108,10 @@ export default function UsersTable(props) {
               <Dropdown.Item>
                 <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
               </Dropdown.Item>
-              <Dropdown.Item href={`users/update/${props.id}`}>
+              <Dropdown.Item href={`income-tax/policy/update/${props.id}`}>
                 <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
               </Dropdown.Item>
-              <Dropdown.Item
-                className="text-danger"
-                onClick={() => {
-                  authAxios
-                    .delete(`/users/${props.id}`)
-                    .then((res) => {
-                      loadUsers();
-                      toast("user deleted", successToast);
-                    })
-                    .catch((err) => {
-                      toast("Couldn't delete the user", errorToast);
-                    });
-                }}
-              >
+              <Dropdown.Item className="text-danger">
                 <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -124,63 +121,50 @@ export default function UsersTable(props) {
     );
   };
 
-  const getUsers = React.useCallback(async (search = "") => {
+  const getIncomeTaxPolicies = React.useCallback(async () => {
     return await authAxios
-      .get(`/users/list?q=${search}`)
+      .get("/income-tax/policy/list")
       .then((res) => {
         return res.data;
       })
       .catch((_) => {
-        return {};
+        return [];
       });
   }, []);
 
-  const loadUsers = React.useCallback(
-    async (search = "") => {
-      const data = await getUsers(search);
-      setUsers(data.results);
-      setTotal(data.total);
-    },
-    [getUsers, setUsers, setTotal]
-  );
+  const loadIncomeTaxPolicies = React.useCallback(async () => {
+    // const data = await getUsers();
+    // setUsers(data.);
+    // setTotal(data.total);
+  }, [getIncomeTaxPolicies, setRecords, setTotal]);
 
   React.useEffect(() => {
-    loadUsers();
-  }, [loadUsers]);
-
-  const handleSearch = (event) => {
-    event.preventDefault();
-    loadUsers(search);
-  };
+    loadIncomeTaxPolicies();
+  }, [loadIncomeTaxPolicies]);
 
   return (
     <>
       <div className="table-settings mb-4">
         <Row className="justify-content-between align-items-center">
           <Col xs={8} md={6} lg={3} xl={4}>
-            <Form onSubmit={handleSearch}>
-              <InputGroup>
-                <InputGroup.Text>
-                  <FontAwesomeIcon icon={faSearch} />
-                </InputGroup.Text>
-                <Form.Control
-                  type="text"
-                  placeholder="Search"
-                  onChange={(event) => {
-                    setSearch(event.target.value);
-                  }}
-                />
-              </InputGroup>
-            </Form>
+            <InputGroup>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faSearch} />
+              </InputGroup.Text>
+              <Form.Control type="text" placeholder="Search" />
+            </InputGroup>
           </Col>
 
           <Col xs={4} md={2} xl={1} className="ps-md-0 text-end">
             <Button
               variant="primary"
               className="mb-3 w-100"
-              href="users/register"
+              href="income-tax/policy/register"
+              style={{
+                fontSize: "16px",
+              }}
             >
-              <FontAwesomeIcon icon={faPlus} /> New User
+              <FontAwesomeIcon icon={faPlus} /> New Record
             </Button>
           </Col>
         </Row>
@@ -193,18 +177,19 @@ export default function UsersTable(props) {
                 <th className="border-bottom">#</th>
                 <th className="border-bottom">Name</th>
                 <th className="border-bottom">PAN</th>
-                <th className="border-bottom">Email</th>
-                <th className="border-bottom">Phone</th>
-                <th className="border-bottom">Status</th>
-                <th className="border-bottom">Role</th>
-                <th className="border-bottom">Last Login</th>
+                <th className="border-bottom">Maritial Status</th>
+                <th className="border-bottom">Fiscal Year</th>
+                <th className="border-bottom">Calculated Date</th>
+                <th className="border-bottom">Annual Amount</th>
+                <th className="border-bottom">Tax Amount</th>
+                <th className="border-bottom">Payment Status</th>
                 <th className="border-bottom">Action</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((t, index) => (
+              {records.map((t, index) => (
                 <TableRow
-                  key={`user-${index}`}
+                  key={`income-tax-${index}`}
                   {...t}
                   index={index + 1}
                   handleActionsClick={props.handleActionsClick}

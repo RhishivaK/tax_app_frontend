@@ -263,7 +263,7 @@ export const TeamMembersWidget = () => {
   return (
     <Card border="light" className="shadow-sm">
       <Card.Header className="border-bottom border-light d-flex justify-content-between">
-        <h5 className="mb-0">Team members</h5>
+        <h5 className="mb-0">Super Admin</h5>
         <Button variant="secondary" size="sm">
           See all
         </Button>
@@ -352,7 +352,7 @@ export const RankingWidget = () => {
                 icon={faGlobeEurope}
                 className="icon icon-xs me-3"
               />{" "}
-              Global Rank
+              Global GDP Rank
             </h6>
           </div>
           <div>
@@ -365,10 +365,10 @@ export const RankingWidget = () => {
           <div>
             <h6 className="mb-0">
               <FontAwesomeIcon icon={faFlagUsa} className="icon icon-xs me-3" />
-              Country Rank
+              Global Tax Collection
             </h6>
             <div className="small card-stats">
-              United States{" "}
+              Nepal{" "}
               <FontAwesomeIcon
                 icon={faAngleUp}
                 className="icon icon-xs text-success ms-2"
@@ -388,11 +388,11 @@ export const RankingWidget = () => {
                 icon={faFolderOpen}
                 className="icon icon-xs me-3"
               />
-              Category Rank
+              Remittance
             </h6>
-            <Card.Link href="#top" className="small card-stats">
+            {/* <Card.Link href="#top" className="small card-stats">
               Travel &gt; Accomodation
-            </Card.Link>
+            </Card.Link> */}
           </div>
           <div>
             <Card.Link href="#top" className="text-primary fw-bold">

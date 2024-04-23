@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faCog, faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown } from '@themesberg/react-bootstrap';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { Button, ButtonGroup, Breadcrumb } from '@themesberg/react-bootstrap';
 
 import UsersTable from "./UsersTable";
 
@@ -16,13 +16,12 @@ export default function Users() {
             <Breadcrumb.Item active>Users</Breadcrumb.Item>
           </Breadcrumb>
           <h4>Users</h4>
-          {/* <p className="mb-0">Your web analytics dashboard template.</p> */}
         </div>
         <div className="btn-toolbar mb-2 mb-md-0">
-          <ButtonGroup>
+          {/* <ButtonGroup>
             <Button variant="outline-primary" size="sm">Share</Button>
             <Button variant="outline-primary" size="sm">Export</Button>
-          </ButtonGroup>
+          </ButtonGroup> */}
         </div>
       </div>
       <UsersTable  />

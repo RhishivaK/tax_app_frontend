@@ -1,19 +1,23 @@
 import React from "react";
-
+import moment from "moment";
+import Datetime from "react-datetime";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import {
   Col,
   Row,
   Card,
   Form,
   Button,
+  InputGroup,
 } from "@themesberg/react-bootstrap";
-import { authAxios } from "../../../plugins/axios";
+import { authAxios } from "../../../../plugins/axios";
 import { toast } from "react-toastify";
-import { errorToast, successToast } from "../../../components/common/toast";
-import { useNavigate } from "react-router";
+import { errorToast, successToast } from "../../../../components/common/toast";
+import { useParams } from "react-router";
 
-export default function UserRegistrationForm() {
-  const navigate = useNavigate();
+export default function UserUpdateForm() {
+  const params = useParams();
   const [formData, setFormData] = React.useState({
     first_name: "",
     last_name: "",
@@ -30,7 +34,6 @@ export default function UserRegistrationForm() {
       .post("/users/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
-        navigate('/dashboard/users');
       })
       .catch((err) => {
         console.log(err);
@@ -42,10 +45,18 @@ export default function UserRegistrationForm() {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  React.useEffect(() => {
+    authAxios.get(`/users/${params.id}`).then(res => {
+      setFormData(res?.data?.data);
+    }).catch(_ => {
+      toast("Couldn't fetch the user", errorToast);
+    });
+  }, [params]);
+
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">User Information</h5>
+        <h5 className="mb-4">User Update Form</h5>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="mb-3">
@@ -55,6 +66,7 @@ export default function UserRegistrationForm() {
                   required
                   onChange={handleChange}
                   name="first_name"
+                  value={formData.first_name}
                   type="text"
                   placeholder="Enter first name"
                 />
@@ -64,8 +76,10 @@ export default function UserRegistrationForm() {
               <Form.Group>
                 <Form.Label>Middle Name</Form.Label>
                 <Form.Control
+                  required
                   onChange={handleChange}
                   name="middle_name"
+                  value={formData.middle_name}
                   type="text"
                   placeholder="Middle Name (If any)"
                 />
@@ -77,6 +91,7 @@ export default function UserRegistrationForm() {
                 <Form.Control
                   required
                   name="last_name"
+                  value={formData.last_name}
                   onChange={handleChange}
                   type="text"
                   placeholder="Enter last name"
@@ -85,23 +100,38 @@ export default function UserRegistrationForm() {
             </Col>
           </Row>
           <Row className="align-items-center">
-          <Col md={6} className="mb-3">
+            <Col md={6} className="mb-3">
               <Form.Group>
-                <Form.Label>Pan Number</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  name="pan"
-                  onChange={handleChange}
-                  placeholder="3434**343"
+                <Form.Label>Date Of Birth</Form.Label>
+                <Datetime
+                  timeFormat={false}
+                  // onChange={handleChange}
+                  renderInput={(props, openCalendar) => (
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <FontAwesomeIcon icon={faCalendarAlt} />
+                      </InputGroup.Text>
+                      <Form.Control
+                        // required
+                        type="text"
+                        value={
+                          formData.dob
+                            ? moment(formData.dob).format("MM/DD/YYYY")
+                            : ""
+                        }
+                        placeholder="mm/dd/yyyy"
+                        onFocus={openCalendar}
+                        onChange={() => {}}
+                      />
+                    </InputGroup>
+                  )}
                 />
               </Form.Group>
             </Col>
             <Col md={6} className="mb-3">
               <Form.Group>
                 <Form.Label>Gender</Form.Label>
-                <Form.Select defaultValue="0">
-                  <option value="0" disabled>Gender</option>
+                <Form.Select onChange={handleChange} name="gender" value={formData.gender}>
                   <option value="1">Female</option>
                   <option value="2">Male</option>
                 </Form.Select>
@@ -116,6 +146,7 @@ export default function UserRegistrationForm() {
                   required
                   type="email"
                   name="email"
+                  value={formData.email}
                   onChange={handleChange}
                   placeholder="name@example.com"
                 />
@@ -128,6 +159,7 @@ export default function UserRegistrationForm() {
                   required
                   type="text"
                   name="phone"
+                  value={formData.phone}
                   onChange={handleChange}
                   placeholder="9800000000"
                 />
@@ -137,25 +169,13 @@ export default function UserRegistrationForm() {
           <Row>
             <Col md={6} className="mb-3">
               <Form.Group>
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Pan Number</Form.Label>
                 <Form.Control
                   required
-                  type="password"
-                  name="password"
+                  type="text"
+                  name="pan"
                   onChange={handleChange}
-                  placeholder="User Password"
-                />
-              </Form.Group>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Reset Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  name="reset-password"
-                  onChange={handleChange}
-                  placeholder="User Password"
+                  placeholder="3434**343"
                 />
               </Form.Group>
             </Col>
@@ -164,7 +184,7 @@ export default function UserRegistrationForm() {
             <Col md={6} className="mb-3">
               <Form.Group>
                 <Form.Label>Maritial Status</Form.Label>
-                <Form.Select onChange={handleChange} name="maritial_status">
+                <Form.Select onChange={handleChange} name="maritial_status" value={formData.maritial_status}>
                   <option value="unmarried">Unmarried</option>
                   <option value="married">Married</option>
                   <option value="divorced">Divorced</option>
@@ -185,7 +205,7 @@ export default function UserRegistrationForm() {
 
           <h5 className="my-4">Address</h5>
           <Row>
-            <Col sm={12} className="mb-3">
+            <Col sm={6} className="mb-3">
               <Form.Group id="address">
                 <Form.Label>Address</Form.Label>
                 <Form.Control
@@ -195,18 +215,18 @@ export default function UserRegistrationForm() {
                 />
               </Form.Group>
             </Col>
-          </Row>
-          <Row>
-          <Col sm={6} className="mb-3">
+            <Col sm={6} className="mb-3">
               <Form.Group id="city">
                 <Form.Label>City</Form.Label>
                 <Form.Control required type="text" placeholder="City" />
               </Form.Group>
             </Col>
+          </Row>
+          <Row>
             <Col sm={6} className="mb-3">
               <Form.Group className="mb-2">
                 <Form.Label>Select Provinces</Form.Label>
-                <Form.Select name="province" defaultValue="bagmati">
+                <Form.Select name="province" value={formData.province}>
                   <option value="koshi">Koshi</option>
                   <option value="madesh">Madhesh</option>
                   <option value="bagmati">Bagmati</option>
@@ -217,10 +237,16 @@ export default function UserRegistrationForm() {
                 </Form.Select>
               </Form.Group>
             </Col>
+            <Col sm={6}>
+              <Form.Group id="zip">
+                <Form.Label>ZIP</Form.Label>
+                <Form.Control required type="tel" placeholder="ZIP" />
+              </Form.Group>
+            </Col>
           </Row>
           <div className="mt-3">
             <Button variant="primary" type="submit">
-              Save
+              Update
             </Button>
           </div>
         </Form>
