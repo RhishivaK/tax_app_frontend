@@ -25,7 +25,7 @@ import {
 import { Link } from "react-router-dom";
 import { authAxios } from "../../../../plugins/axios";
 
-export default function IncomeTaxPolicyTable(props) {
+export default function CorporateTaxPolicyTable(props) {
   const [total, setTotal] = React.useState(1);
   const [records, setRecords] = React.useState([
     {
@@ -121,7 +121,7 @@ export default function IncomeTaxPolicyTable(props) {
     );
   };
 
-  const getIncomeTaxPolicies = React.useCallback(async () => {
+  const getCorporateTaxPolicies = React.useCallback(async () => {
     return await authAxios
       .get("/income-tax/policy/list")
       .then((res) => {
@@ -132,15 +132,15 @@ export default function IncomeTaxPolicyTable(props) {
       });
   }, []);
 
-  const loadIncomeTaxPolicies = React.useCallback(async () => {
+  const loadCorporateTaxPolicies = React.useCallback(async () => {
     // const data = await getUsers();
     // setUsers(data.);
     // setTotal(data.total);
-  }, [getIncomeTaxPolicies, setRecords, setTotal]);
+  }, [getCorporateTaxPolicies, setRecords, setTotal]);
 
   React.useEffect(() => {
-    loadIncomeTaxPolicies();
-  }, [loadIncomeTaxPolicies]);
+    loadCorporateTaxPolicies();
+  }, [loadCorporateTaxPolicies]);
 
   return (
     <>

@@ -20,7 +20,7 @@ import {
   Dropdown,
   Pagination,
   InputGroup,
-  ButtonGroup
+  ButtonGroup,
 } from "@themesberg/react-bootstrap";
 import { Link } from "react-router-dom";
 import { authAxios } from "../../../../plugins/axios";

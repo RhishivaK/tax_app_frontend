@@ -20,77 +20,51 @@ import {
   Dropdown,
   Pagination,
   InputGroup,
-  ButtonGroup
+  ButtonGroup,
 } from "@themesberg/react-bootstrap";
 import { Link } from "react-router-dom";
 import { authAxios } from "../../../../plugins/axios";
 
-export default function IncomeTaxPolicyTable(props) {
-  const [total, setTotal] = React.useState(1);
-  const [records, setRecords] = React.useState([
+export default function VehicleTaxPolicyTable(props) {
+  const [total, setTotal] = React.useState(0);
+  const [users, setUsers] = React.useState([
     {
-      name: "Shrishak Bhattarai",
-      pan: "92392023",
-      maritial_status: "Unmarried",
-      fiscal_year: "2079/80",
-      calculated_date: "2022-06-23T15:47:03.839062",
-      annual_amount: 492392,
-      tax_amount: 201717.6,
-      status: "paid",
+      'fiscal_year': '2079/80',
+      'initiate_date': '2022-07-15T23:59:59.839062',
+      'created_at': '2022-06-23T15:47:03.839062'
     },
+    {
+      'fiscal_year': '2080/81',
+      'initiate_date': '2023-07-15T23:59:59.839062',
+      'created_at': '2023-06-23T10:47:03.839062'
+    },
+    {
+      'fiscal_year': '2081/82',
+      'initiate_date': '2024-07-15T23:59:59.839062',
+      'created_at': '2024-06-23T22:47:03.839062'
+    }
   ]);
   const TableRow = (props) => {
-    const { index, name, pan, maritial_status, fiscal_year, calculated_date, annual_amount, tax_amount, status } = props;
-    const statusVariant =
-      status === "paid"
-        ? "success"
-        : status === "pending"
-        ? "warning"
-        : status === "cancelled"
-        ? "danger"
-        : "primary";
+    const {
+      index,
+      fiscal_year,
+      initiate_date,
+      created_at,
+    } = props;
     return (
       <tr>
         <td>{index}</td>
-        <td>
-          <span className="fw-normal">
-            {name}
-          </span>
-        </td>
-        <td>
-          <span className="fw-normal">
-            {pan}
-          </span>
-        </td>
-        <td>
-          <span className="fw-normal">
-            {maritial_status}
-          </span>
-        </td>
         <td>
           <Card.Link as={Link} to={"/"} className="fw-normal">
             {fiscal_year}
           </Card.Link>
         </td>
+
         <td>
-          <span className="fw-normal">
-            {new Date(calculated_date).toLocaleString()}
-          </span>
+          <span className="fw-normal">{new Date(initiate_date).toLocaleString()}</span>
         </td>
         <td>
-          <span className="fw-normal">
-            {annual_amount}
-          </span>
-        </td>
-        <td>
-          <span className="fw-normal">
-            {tax_amount}
-          </span>
-        </td>
-        <td>
-          <span className={`fw-normal text-${statusVariant}`}>
-            {status.toUpperCase()}
-          </span>
+          <span className="fw-normal">{new Date(created_at).toLocaleString()}</span>
         </td>
         <td>
           <Dropdown as={ButtonGroup}>
@@ -108,7 +82,9 @@ export default function IncomeTaxPolicyTable(props) {
               <Dropdown.Item>
                 <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
               </Dropdown.Item>
-              <Dropdown.Item href={`income-tax/policy/update/${props.id}`}>
+              <Dropdown.Item
+                href={`income-tax/policy/update/${props.id}`}
+              >
                 <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
               </Dropdown.Item>
               <Dropdown.Item className="text-danger">
@@ -121,7 +97,7 @@ export default function IncomeTaxPolicyTable(props) {
     );
   };
 
-  const getIncomeTaxPolicies = React.useCallback(async () => {
+  const getVehicleTaxPolicies = React.useCallback(async () => {
     return await authAxios
       .get("/income-tax/policy/list")
       .then((res) => {
@@ -130,17 +106,17 @@ export default function IncomeTaxPolicyTable(props) {
       .catch((_) => {
         return [];
       });
-  }, []);
+  }, []);;
 
-  const loadIncomeTaxPolicies = React.useCallback(async () => {
+  const loadVehicleTaxPolicies = React.useCallback(async () => {
     // const data = await getUsers();
     // setUsers(data.);
     // setTotal(data.total);
-  }, [getIncomeTaxPolicies, setRecords, setTotal]);
+  }, [getVehicleTaxPolicies, setUsers, setTotal]);
 
   React.useEffect(() => {
-    loadIncomeTaxPolicies();
-  }, [loadIncomeTaxPolicies]);
+    loadVehicleTaxPolicies();
+  }, [loadVehicleTaxPolicies]);
 
   return (
     <>
@@ -159,12 +135,12 @@ export default function IncomeTaxPolicyTable(props) {
             <Button
               variant="primary"
               className="mb-3 w-100"
-              href="income-tax/policy/register"
+              href="/policy/register"
               style={{
-                fontSize: "16px",
+                fontSize: '16px'
               }}
             >
-              <FontAwesomeIcon icon={faPlus} /> New Record
+              <FontAwesomeIcon icon={faPlus} /> New Policy
             </Button>
           </Col>
         </Row>
@@ -175,19 +151,14 @@ export default function IncomeTaxPolicyTable(props) {
             <thead>
               <tr>
                 <th className="border-bottom">#</th>
-                <th className="border-bottom">Name</th>
-                <th className="border-bottom">PAN</th>
-                <th className="border-bottom">Maritial Status</th>
                 <th className="border-bottom">Fiscal Year</th>
-                <th className="border-bottom">Calculated Date</th>
-                <th className="border-bottom">Annual Amount</th>
-                <th className="border-bottom">Tax Amount</th>
-                <th className="border-bottom">Payment Status</th>
+                <th className="border-bottom">Initiate Date</th>
+                <th className="border-bottom">Created At</th>
                 <th className="border-bottom">Action</th>
               </tr>
             </thead>
             <tbody>
-              {records.map((t, index) => (
+              {users.map((t, index) => (
                 <TableRow
                   key={`income-tax-${index}`}
                   {...t}

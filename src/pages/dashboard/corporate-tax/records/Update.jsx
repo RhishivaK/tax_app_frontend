@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import { errorToast, successToast } from "../../../../components/common/toast";
 import { useParams } from "react-router";
 
-export default function UserUpdateForm() {
+export default function CorporateTaxRecordUpdateForm() {
   const params = useParams();
   const [formData, setFormData] = React.useState({
     first_name: "",
@@ -31,13 +31,13 @@ export default function UserUpdateForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/users/", formData)
+      .post("/corporate-tax/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
       })
       .catch((err) => {
         console.log(err);
-        toast("Couldn't create user", errorToast);
+        toast("Couldn't create corporate-tax", errorToast);
       });
   };
 
@@ -46,10 +46,10 @@ export default function UserUpdateForm() {
   };
 
   React.useEffect(() => {
-    authAxios.get(`/users/${params.id}`).then(res => {
+    authAxios.get(`/corporate-tax/${params.id}`).then(res => {
       setFormData(res?.data?.data);
     }).catch(_ => {
-      toast("Couldn't fetch the user", errorToast);
+      toast("Couldn't fetch the corporate-tax", errorToast);
     });
   }, [params]);
 

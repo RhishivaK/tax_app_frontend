@@ -14,10 +14,8 @@ import {
 import { authAxios } from "../../../../plugins/axios";
 import { toast } from "react-toastify";
 import { errorToast, successToast } from "../../../../components/common/toast";
-import { useParams } from "react-router";
 
-export default function IncomeTaxUpdateForm() {
-  const params = useParams();
+export default function VehicleTaxPolicyRegistration() {
   const [formData, setFormData] = React.useState({
     first_name: "",
     last_name: "",
@@ -31,13 +29,13 @@ export default function IncomeTaxUpdateForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/income-tax/", formData)
+      .post("/income-tax/policy/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
       })
       .catch((err) => {
         console.log(err);
-        toast("Couldn't create income-tax", errorToast);
+        toast("Couldn't create policy", errorToast);
       });
   };
 
@@ -45,18 +43,10 @@ export default function IncomeTaxUpdateForm() {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  React.useEffect(() => {
-    authAxios.get(`/income-tax/${params.id}`).then(res => {
-      setFormData(res?.data?.data);
-    }).catch(_ => {
-      toast("Couldn't fetch the income-tax", errorToast);
-    });
-  }, [params]);
-
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">IncomeTax Update Form</h5>
+        <h5 className="mb-4">Vehicle Tax Policies Information</h5>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="mb-3">
@@ -66,7 +56,6 @@ export default function IncomeTaxUpdateForm() {
                   required
                   onChange={handleChange}
                   name="first_name"
-                  value={formData.first_name}
                   type="text"
                   placeholder="Enter first name"
                 />
@@ -79,7 +68,6 @@ export default function IncomeTaxUpdateForm() {
                   required
                   onChange={handleChange}
                   name="middle_name"
-                  value={formData.middle_name}
                   type="text"
                   placeholder="Middle Name (If any)"
                 />
@@ -91,7 +79,6 @@ export default function IncomeTaxUpdateForm() {
                 <Form.Control
                   required
                   name="last_name"
-                  value={formData.last_name}
                   onChange={handleChange}
                   type="text"
                   placeholder="Enter last name"
@@ -102,34 +89,21 @@ export default function IncomeTaxUpdateForm() {
           <Row className="align-items-center">
             <Col md={6} className="mb-3">
               <Form.Group>
-                <Form.Label>Date Of Birth</Form.Label>
-                <Datetime
-                  timeFormat={false}
-                  renderInput={(props, openCalendar) => (
-                    <InputGroup>
-                      <InputGroup.Text>
-                        <FontAwesomeIcon icon={faCalendarAlt} />
-                      </InputGroup.Text>
-                      <Form.Control
-                        type="text"
-                        value={
-                          formData.dob
-                            ? moment(formData.dob).format("MM/DD/YYYY")
-                            : ""
-                        }
-                        placeholder="mm/dd/yyyy"
-                        onFocus={openCalendar}
-                        onChange={() => {}}
-                      />
-                    </InputGroup>
-                  )}
+                <Form.Label>Pan Number</Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  name="pan"
+                  onChange={handleChange}
+                  placeholder="3434**343"
                 />
               </Form.Group>
             </Col>
             <Col md={6} className="mb-3">
-              <Form.Group>
+              <Form.Group id="gender">
                 <Form.Label>Gender</Form.Label>
-                <Form.Select onChange={handleChange} name="gender" value={formData.gender}>
+                <Form.Select defaultValue="0">
+                  <option value="0">Gender</option>
                   <option value="1">Female</option>
                   <option value="2">Male</option>
                 </Form.Select>
@@ -144,7 +118,6 @@ export default function IncomeTaxUpdateForm() {
                   required
                   type="email"
                   name="email"
-                  value={formData.email}
                   onChange={handleChange}
                   placeholder="name@example.com"
                 />
@@ -157,7 +130,6 @@ export default function IncomeTaxUpdateForm() {
                   required
                   type="text"
                   name="phone"
-                  value={formData.phone}
                   onChange={handleChange}
                   placeholder="9800000000"
                 />
@@ -167,13 +139,13 @@ export default function IncomeTaxUpdateForm() {
           <Row>
             <Col md={6} className="mb-3">
               <Form.Group>
-                <Form.Label>Pan Number</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   required
-                  type="text"
-                  name="pan"
+                  type="password"
+                  name="password"
                   onChange={handleChange}
-                  placeholder="3434**343"
+                  placeholder="User Password"
                 />
               </Form.Group>
             </Col>
@@ -182,7 +154,7 @@ export default function IncomeTaxUpdateForm() {
             <Col md={6} className="mb-3">
               <Form.Group>
                 <Form.Label>Maritial Status</Form.Label>
-                <Form.Select onChange={handleChange} name="maritial_status" value={formData.maritial_status}>
+                <Form.Select onChange={handleChange} name="maritial_status">
                   <option value="unmarried">Unmarried</option>
                   <option value="married">Married</option>
                   <option value="divorced">Divorced</option>
@@ -193,7 +165,7 @@ export default function IncomeTaxUpdateForm() {
               <Form.Group>
                 <Form.Label>Role</Form.Label>
                 <Form.Select defaultValue="0">
-                  <option value="general">General Income TAx</option>
+                  <option value="general">General User</option>
                   <option value="officer">Officer</option>
                   <option value="super_admin">Super Admin</option>
                 </Form.Select>
@@ -224,7 +196,7 @@ export default function IncomeTaxUpdateForm() {
             <Col sm={6} className="mb-3">
               <Form.Group className="mb-2">
                 <Form.Label>Select Provinces</Form.Label>
-                <Form.Select name="province" value={formData.province}>
+                <Form.Select name="province" defaultValue="bagmati">
                   <option value="koshi">Koshi</option>
                   <option value="madesh">Madhesh</option>
                   <option value="bagmati">Bagmati</option>
@@ -244,7 +216,7 @@ export default function IncomeTaxUpdateForm() {
           </Row>
           <div className="mt-3">
             <Button variant="primary" type="submit">
-              Update
+              Save
             </Button>
           </div>
         </Form>

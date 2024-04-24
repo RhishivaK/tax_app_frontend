@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 
 import IncomeTaxPolicyRegistration from './Register';
 import IncomeTaxPolicyUpdateForm from './Update';
-import IncomeTaxPolicy from './CorporateTaxRecords';
+import IncomeTaxPolicy from './VehicleTaxRecord';
 
 
 export default function IncomeTaxPolicyRoutes() {

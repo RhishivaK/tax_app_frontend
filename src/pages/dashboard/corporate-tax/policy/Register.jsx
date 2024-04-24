@@ -1,29 +1,16 @@
 import React from "react";
-import moment from "moment";
-import Datetime from "react-datetime";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import {
-  Col,
-  Row,
-  Card,
-  Form,
-  Button,
-  InputGroup,
-} from "@themesberg/react-bootstrap";
+
+import { Col, Row, Card, Form, Button } from "@themesberg/react-bootstrap";
 import { authAxios } from "../../../../plugins/axios";
 import { toast } from "react-toastify";
 import { errorToast, successToast } from "../../../../components/common/toast";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function IncomeTaxPolicyRegistration() {
   const [formData, setFormData] = React.useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone: "",
-    pan: "",
-    maritial_status: "",
-    password: "",
+    married: {},
+    unmarried: {},
   });
 
   const handleSubmit = (event) => {
@@ -40,178 +27,90 @@ export default function IncomeTaxPolicyRegistration() {
   };
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    // setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">Income Tax Policies Information</h5>
+        <h5 className="mb-4">Income Tax Policy Information</h5>
         <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col md={4} className="mb-3">
-              <Form.Group>
-                <Form.Label>First Name (*)</Form.Label>
-                <Form.Control
-                  required
-                  onChange={handleChange}
-                  name="first_name"
-                  type="text"
-                  placeholder="Enter first name"
-                />
-              </Form.Group>
-            </Col>
-            <Col md={4} className="mb-3">
-              <Form.Group>
-                <Form.Label>Middle Name</Form.Label>
-                <Form.Control
-                  required
-                  onChange={handleChange}
-                  name="middle_name"
-                  type="text"
-                  placeholder="Middle Name (If any)"
-                />
-              </Form.Group>
-            </Col>
-            <Col md={4} className="mb-3">
-              <Form.Group>
-                <Form.Label>Last Name (*)</Form.Label>
-                <Form.Control
-                  required
-                  name="last_name"
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Enter last name"
-                />
-              </Form.Group>
-            </Col>
-          </Row>
           <Row className="align-items-center">
             <Col md={6} className="mb-3">
               <Form.Group>
-                <Form.Label>Pan Number</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  name="pan"
-                  onChange={handleChange}
-                  placeholder="3434**343"
-                />
-              </Form.Group>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group id="gender">
-                <Form.Label>Gender</Form.Label>
-                <Form.Select defaultValue="0">
-                  <option value="0">Gender</option>
-                  <option value="1">Female</option>
-                  <option value="2">Male</option>
+                <Form.Label>Fiscal Year (*)</Form.Label>
+                <Form.Select onChange={handleChange} name="fiscal_year">
+                  <option value="1">2079/80</option>
+                  <option value="2">2080/81</option>
+                  <option value="3">2081/82</option>
                 </Form.Select>
               </Form.Group>
             </Col>
           </Row>
+          <h5>Married Policy</h5>
+          {Object.keys(formData?.married).map((item) => (
+            <Row>
+              <Col md={5} className="mb-3">
+                <Form.Group>
+                  <Form.Label>Amount</Form.Label>
+                  <Form.Control
+                    required
+                    type="number"
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={5} className="mb-3">
+                <Form.Group>
+                  <Form.Label>Tax Percent (%)</Form.Label>
+                  <Form.Control
+                    required
+                    type="number"
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col className="mt-4">
+                <Button
+                  variant="outline-gray-900"
+                  onClick={(event) => {
+                    setFormData({
+                      ...formData,
+                      married: {
+                        ...formData.married,
+                        [Object.keys(formData.married).length.toString() + 1]: {
+                          amount: 0,
+                          percent: 0,
+                        },
+                      },
+                    });
+                  }}
+                >
+                  <FontAwesomeIcon icon={faMinus} />
+                </Button>
+              </Col>
+            </Row>
+          ))}
           <Row>
-            <Col md={6} className="mb-3">
-              <Form.Group id="emal">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  required
-                  type="email"
-                  name="email"
-                  onChange={handleChange}
-                  placeholder="name@example.com"
-                />
-              </Form.Group>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group id="phone">
-                <Form.Label>Phone</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  name="phone"
-                  onChange={handleChange}
-                  placeholder="9800000000"
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  placeholder="User Password"
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row className="align-items-center">
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Maritial Status</Form.Label>
-                <Form.Select onChange={handleChange} name="maritial_status">
-                  <option value="unmarried">Unmarried</option>
-                  <option value="married">Married</option>
-                  <option value="divorced">Divorced</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Role</Form.Label>
-                <Form.Select defaultValue="0">
-                  <option value="general">General User</option>
-                  <option value="officer">Officer</option>
-                  <option value="super_admin">Super Admin</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-          </Row>
-
-          <h5 className="my-4">Address</h5>
-          <Row>
-            <Col sm={6} className="mb-3">
-              <Form.Group id="address">
-                <Form.Label>Address</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Enter your home address"
-                />
-              </Form.Group>
-            </Col>
-            <Col sm={6} className="mb-3">
-              <Form.Group id="city">
-                <Form.Label>City</Form.Label>
-                <Form.Control required type="text" placeholder="City" />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={6} className="mb-3">
-              <Form.Group className="mb-2">
-                <Form.Label>Select Provinces</Form.Label>
-                <Form.Select name="province" defaultValue="bagmati">
-                  <option value="koshi">Koshi</option>
-                  <option value="madesh">Madhesh</option>
-                  <option value="bagmati">Bagmati</option>
-                  <option value="gandaki">Gandaki</option>
-                  <option value="lumbini">Lumbini</option>
-                  <option value="karnali">Karnali</option>
-                  <option value="sudurpashchim">Sudurpashchim</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col sm={6}>
-              <Form.Group id="zip">
-                <Form.Label>ZIP</Form.Label>
-                <Form.Control required type="tel" placeholder="ZIP" />
-              </Form.Group>
+            <Col>
+              <Button
+                variant="outline-gray-900"
+                onClick={(event) => {
+                  console.log(formData);
+                  setFormData({
+                    ...formData,
+                    married: {
+                      ...formData.married,
+                      [Object.keys(formData.married).length.toString() + 1]: {
+                        amount: 0,
+                        percent: 0,
+                      },
+                    },
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </Button>
             </Col>
           </Row>
           <div className="mt-3">

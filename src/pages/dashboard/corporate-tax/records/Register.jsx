@@ -15,7 +15,7 @@ import { authAxios } from "../../../../plugins/axios";
 import { toast } from "react-toastify";
 import { errorToast, successToast } from "../../../../components/common/toast";
 
-export default function IncomeTaxPolicyRegistration() {
+export default function CorporateTaxPolicyRegistration() {
   const [formData, setFormData] = React.useState({
     first_name: "",
     last_name: "",
@@ -46,7 +46,7 @@ export default function IncomeTaxPolicyRegistration() {
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">Income Tax Policies Information</h5>
+        <h5 className="mb-4">Corporate Tax Policies Information</h5>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="mb-3">

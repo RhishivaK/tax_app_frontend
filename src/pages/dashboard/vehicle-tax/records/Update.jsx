@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import { errorToast, successToast } from "../../../../components/common/toast";
 import { useParams } from "react-router";
 
-export default function IncomeTaxUpdateForm() {
+export default function UserUpdateForm() {
   const params = useParams();
   const [formData, setFormData] = React.useState({
     first_name: "",
@@ -31,13 +31,13 @@ export default function IncomeTaxUpdateForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/income-tax/", formData)
+      .post("/users/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
       })
       .catch((err) => {
         console.log(err);
-        toast("Couldn't create income-tax", errorToast);
+        toast("Couldn't create user", errorToast);
       });
   };
 
@@ -46,17 +46,17 @@ export default function IncomeTaxUpdateForm() {
   };
 
   React.useEffect(() => {
-    authAxios.get(`/income-tax/${params.id}`).then(res => {
+    authAxios.get(`/users/${params.id}`).then(res => {
       setFormData(res?.data?.data);
     }).catch(_ => {
-      toast("Couldn't fetch the income-tax", errorToast);
+      toast("Couldn't fetch the user", errorToast);
     });
   }, [params]);
 
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">IncomeTax Update Form</h5>
+        <h5 className="mb-4">User Update Form</h5>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="mb-3">
@@ -105,12 +105,14 @@ export default function IncomeTaxUpdateForm() {
                 <Form.Label>Date Of Birth</Form.Label>
                 <Datetime
                   timeFormat={false}
+                  // onChange={handleChange}
                   renderInput={(props, openCalendar) => (
                     <InputGroup>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faCalendarAlt} />
                       </InputGroup.Text>
                       <Form.Control
+                        // required
                         type="text"
                         value={
                           formData.dob
@@ -193,7 +195,7 @@ export default function IncomeTaxUpdateForm() {
               <Form.Group>
                 <Form.Label>Role</Form.Label>
                 <Form.Select defaultValue="0">
-                  <option value="general">General Income TAx</option>
+                  <option value="general">General User</option>
                   <option value="officer">Officer</option>
                   <option value="super_admin">Super Admin</option>
                 </Form.Select>
