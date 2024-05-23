@@ -29,7 +29,7 @@ export default function CorporateTaxPolicyRegistration() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/income-tax/policy/", formData)
+      .post("/corporate-tax/policy/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
       })
@@ -113,16 +113,6 @@ export default function CorporateTaxPolicyRegistration() {
                     </InputGroup>
                   )}
                 />
-              </Form.Group>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group id="gender">
-                <Form.Label>Gender</Form.Label>
-                <Form.Select defaultValue="0">
-                  <option value="0">Gender</option>
-                  <option value="1">Female</option>
-                  <option value="2">Male</option>
-                </Form.Select>
               </Form.Group>
             </Col>
           </Row>

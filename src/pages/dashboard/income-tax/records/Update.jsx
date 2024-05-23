@@ -126,15 +126,6 @@ export default function IncomeTaxUpdateForm() {
                 />
               </Form.Group>
             </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Gender</Form.Label>
-                <Form.Select onChange={handleChange} name="gender" value={formData.gender}>
-                  <option value="1">Female</option>
-                  <option value="2">Male</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
           </Row>
           <Row>
             <Col md={6} className="mb-3">

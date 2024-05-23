@@ -29,7 +29,7 @@ export const GeneralInfoForm = () => {
             </Col>
           </Row>
           <Row className="align-items-center">
-            <Col md={6} className="mb-3">
+            <Col md={12} className="mb-3">
               <Form.Group id="birthday">
                 <Form.Label>Birthday</Form.Label>
                 <Datetime
@@ -47,16 +47,6 @@ export const GeneralInfoForm = () => {
                         onChange={() => { }} />
                     </InputGroup>
                   )} />
-              </Form.Group>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group id="gender">
-                <Form.Label>Gender</Form.Label>
-                <Form.Select defaultValue="0">
-                  <option value="0">Gender</option>
-                  <option value="1">Female</option>
-                  <option value="2">Male</option>
-                </Form.Select>
               </Form.Group>
             </Col>
           </Row>

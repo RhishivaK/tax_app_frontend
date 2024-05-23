@@ -27,18 +27,7 @@ import { authAxios } from "../../../../plugins/axios";
 
 export default function CorporateTaxPolicyTable(props) {
   const [total, setTotal] = React.useState(1);
-  const [records, setRecords] = React.useState([
-    {
-      name: "Shrishak Bhattarai",
-      pan: "92392023",
-      maritial_status: "Unmarried",
-      fiscal_year: "2079/80",
-      calculated_date: "2022-06-23T15:47:03.839062",
-      annual_amount: 492392,
-      tax_amount: 201717.6,
-      status: "paid",
-    },
-  ]);
+  const [records, setRecords] = React.useState([]);
   const TableRow = (props) => {
     const { index, name, pan, maritial_status, fiscal_year, calculated_date, annual_amount, tax_amount, status } = props;
     const statusVariant =
@@ -108,12 +97,12 @@ export default function CorporateTaxPolicyTable(props) {
               <Dropdown.Item>
                 <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
               </Dropdown.Item>
-              <Dropdown.Item href={`income-tax/policy/update/${props.id}`}>
+              {/* <Dropdown.Item href={`record/update/${props.id}`}>
                 <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
               </Dropdown.Item>
               <Dropdown.Item className="text-danger">
                 <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
-              </Dropdown.Item>
+              </Dropdown.Item> */}
             </Dropdown.Menu>
           </Dropdown>
         </td>
@@ -155,18 +144,18 @@ export default function CorporateTaxPolicyTable(props) {
             </InputGroup>
           </Col>
 
-          <Col xs={4} md={2} xl={1} className="ps-md-0 text-end">
+          {/* <Col xs={4} md={2} xl={1} className="ps-md-0 text-end">
             <Button
               variant="primary"
               className="mb-3 w-100"
-              href="income-tax/policy/register"
+              href="policy/register"
               style={{
                 fontSize: "16px",
               }}
             >
               <FontAwesomeIcon icon={faPlus} /> New Record
             </Button>
-          </Col>
+          </Col> */}
         </Row>
       </div>
       <Card border="light" className="table-wrapper table-responsive shadow-sm">
@@ -189,7 +178,7 @@ export default function CorporateTaxPolicyTable(props) {
             <tbody>
               {records.map((t, index) => (
                 <TableRow
-                  key={`income-tax-${index}`}
+                  key={`corporate-tax-${index}`}
                   {...t}
                   index={index + 1}
                   handleActionsClick={props.handleActionsClick}
@@ -202,10 +191,6 @@ export default function CorporateTaxPolicyTable(props) {
               <Pagination className="mb-2 mb-lg-0">
                 <Pagination.Prev>Previous</Pagination.Prev>
                 <Pagination.Item active>1</Pagination.Item>
-                <Pagination.Item>2</Pagination.Item>
-                <Pagination.Item>3</Pagination.Item>
-                <Pagination.Item>4</Pagination.Item>
-                <Pagination.Item>5</Pagination.Item>
                 <Pagination.Next>Next</Pagination.Next>
               </Pagination>
             </Nav>

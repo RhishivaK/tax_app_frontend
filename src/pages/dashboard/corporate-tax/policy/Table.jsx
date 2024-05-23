@@ -25,25 +25,9 @@ import {
 import { Link } from "react-router-dom";
 import { authAxios } from "../../../../plugins/axios";
 
-export default function IncomeTaxPolicyTable(props) {
+export default function CorporateTaxPolicyTable(props) {
   const [total, setTotal] = React.useState(0);
-  const [users, setUsers] = React.useState([
-    {
-      'fiscal_year': '2079/80',
-      'initiate_date': '2022-07-15T23:59:59.839062',
-      'created_at': '2022-06-23T15:47:03.839062'
-    },
-    {
-      'fiscal_year': '2080/81',
-      'initiate_date': '2023-07-15T23:59:59.839062',
-      'created_at': '2023-06-23T10:47:03.839062'
-    },
-    {
-      'fiscal_year': '2081/82',
-      'initiate_date': '2024-07-15T23:59:59.839062',
-      'created_at': '2024-06-23T22:47:03.839062'
-    }
-  ]);
+  const [users, setUsers] = React.useState([]);
   const TableRow = (props) => {
     const {
       index,
@@ -99,7 +83,7 @@ export default function IncomeTaxPolicyTable(props) {
 
   const getIncomeTaxPolicies = React.useCallback(async () => {
     return await authAxios
-      .get("/income-tax/policy/list")
+      .get("/corporate-tax/policy/list")
       .then((res) => {
         return res.data;
       })
@@ -173,10 +157,6 @@ export default function IncomeTaxPolicyTable(props) {
               <Pagination className="mb-2 mb-lg-0">
                 <Pagination.Prev>Previous</Pagination.Prev>
                 <Pagination.Item active>1</Pagination.Item>
-                <Pagination.Item>2</Pagination.Item>
-                <Pagination.Item>3</Pagination.Item>
-                <Pagination.Item>4</Pagination.Item>
-                <Pagination.Item>5</Pagination.Item>
                 <Pagination.Next>Next</Pagination.Next>
               </Pagination>
             </Nav>

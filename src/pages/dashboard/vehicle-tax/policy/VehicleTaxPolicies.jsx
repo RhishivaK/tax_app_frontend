@@ -22,7 +22,7 @@ export default function IncomeTaxPolicy() {
             <Breadcrumb.Item>Income Tax</Breadcrumb.Item>
             <Breadcrumb.Item active>Policies</Breadcrumb.Item>
           </Breadcrumb>
-          <h4>Income Tax Policies</h4>
+          <h4>Vechile Tax Policies</h4>
         </div>
       </div>
       <IncomeTaxPolicyTable />

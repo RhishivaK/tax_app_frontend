@@ -1,19 +1,18 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import CorporateTaxPolicyRegistration from './Register';
+import CorporateTaxPolicyUpdateForm from './Update';
+import CorporateTaxPolicy from './CorporateTaxPolicies';
 
-import IncomeTaxPolicyRegistration from './Register';
-import IncomeTaxPolicyUpdateForm from './Update';
-import IncomeTaxPolicy from './IncomeTaxPolicies';
 
-
-export default function IncomeTaxPolicyRoutes() {
+export default function CorporateTaxPolicyRoutes() {
   console.log("Warning");
   return (
     <Routes>
-        <Route exact path={"/"} element={<IncomeTaxPolicy />} />
-        <Route exact path={"/register"} element={<IncomeTaxPolicyRegistration />} />
-        <Route exact path={"/update/:id"} element={<IncomeTaxPolicyUpdateForm />} />
+        <Route exact path={"/"} element={<CorporateTaxPolicy />} />
+        <Route exact path={"/register"} element={<CorporateTaxPolicyRegistration />} />
+        <Route exact path={"/update/:id"} element={<CorporateTaxPolicyUpdateForm />} />
     </Routes>
   );
 }

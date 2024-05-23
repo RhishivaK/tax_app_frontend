@@ -103,7 +103,7 @@ export default function UserUpdateForm() {
             </Col>
           </Row>
           <Row className="align-items-center">
-            <Col md={6} className="mb-3">
+            <Col md={12} className="mb-3">
               <Form.Group>
                 <Form.Label>Pan Number</Form.Label>
                 <Form.Control
@@ -114,19 +114,6 @@ export default function UserUpdateForm() {
                   value={formData.pan}
                   placeholder="3434**343"
                 />
-              </Form.Group>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Label>Gender</Form.Label>
-                <Form.Select
-                  onChange={handleChange}
-                  name="gender"
-                  value={formData.gender}
-                >
-                  <option value="1">Female</option>
-                  <option value="2">Male</option>
-                </Form.Select>
               </Form.Group>
             </Col>
           </Row>

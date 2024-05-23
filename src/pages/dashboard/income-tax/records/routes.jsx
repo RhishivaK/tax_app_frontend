@@ -7,12 +7,11 @@ import IncomeTaxPolicyUpdateForm from './Update';
 import IncomeTaxPolicy from './IncomeTaxRecords';
 
 
-export default function IncomeTaxPolicyRoutes() {
-  console.log("Warning");
+export default function IncomeTaxRecordRoutes() {
   return (
     <Routes>
         <Route exact path={"/"} element={<IncomeTaxPolicy />} />
-        <Route exact path={"/register"} element={<IncomeTaxPolicyRegistration />} />
+        <Route path={"/register"} element={<IncomeTaxPolicyRegistration />} />
         <Route exact path={"/update/:id"} element={<IncomeTaxPolicyUpdateForm />} />
     </Routes>
   );

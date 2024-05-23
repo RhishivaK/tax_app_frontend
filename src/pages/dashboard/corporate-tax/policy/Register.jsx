@@ -7,7 +7,7 @@ import { errorToast, successToast } from "../../../../components/common/toast";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function IncomeTaxPolicyRegistration() {
+export default function CorporateTaxPolicyRegistration() {
   const [formData, setFormData] = React.useState({
     married: {},
     unmarried: {},
@@ -16,7 +16,7 @@ export default function IncomeTaxPolicyRegistration() {
   const handleSubmit = (event) => {
     event.preventDefault();
     authAxios
-      .post("/income-tax/policy/", formData)
+      .post("/corporate-tax/policy/", formData)
       .then((res) => {
         toast(res?.data?.message, successToast);
       })
@@ -33,7 +33,7 @@ export default function IncomeTaxPolicyRegistration() {
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>
-        <h5 className="mb-4">Income Tax Policy Information</h5>
+        <h5 className="mb-4">Corporate Tax Policy Information</h5>
         <Form onSubmit={handleSubmit}>
           <Row className="align-items-center">
             <Col md={6} className="mb-3">

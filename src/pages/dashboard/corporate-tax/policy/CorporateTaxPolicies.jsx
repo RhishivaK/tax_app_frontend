@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Breadcrumb } from "@themesberg/react-bootstrap";
 
-import VehicleTaxPolicyTable from "./Table";
+import IncomeTaxPolicyTable from "./Table";
 
-export default function VehicleTaxPolicy() {
-  console.log("Vehicle tax policies")
+export default function CorporateTaxPolicy() {
+  console.log("Income tax policies")
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
@@ -19,13 +19,13 @@ export default function VehicleTaxPolicy() {
               <FontAwesomeIcon icon={faHome} />
             </Breadcrumb.Item>
             <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-            <Breadcrumb.Item>Vehicle Tax</Breadcrumb.Item>
+            <Breadcrumb.Item>Corporate Tax</Breadcrumb.Item>
             <Breadcrumb.Item active>Policies</Breadcrumb.Item>
           </Breadcrumb>
-          <h4>Vehicle Tax Policies</h4>
+          <h4>Corporate Tax Policies</h4>
         </div>
       </div>
-      <VehicleTaxPolicyTable />
+      <IncomeTaxPolicyTable />
     </>
   );
 }
