@@ -22,8 +22,7 @@ function PrivateRoutes() {
   return (
     userInfo?.id && (
       <Routes>
-        <Route path="/dashboard/*" element={<DashboardRoutes />} />
-        <Route path="/*" element={<Navigate to="/dashboard" />} />
+        <Route path="/*" element={<DashboardRoutes />} />
       </Routes>
     )
   );
@@ -40,7 +39,7 @@ function App() {
       <Routes>
         <Route path="/auth/login" element={<LoginForm />} />
         <Route path="/auth/signup" element={<Registerform />} />
-        <Route path="/*" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route
           path="/dashboard/*"
           element={
