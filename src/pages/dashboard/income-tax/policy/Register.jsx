@@ -56,6 +56,8 @@ export default function IncomeTaxPolicyRegistration() {
                   <Form.Control
                     required
                     type="number"
+                    min={0}
+                    name="amount"
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -66,6 +68,9 @@ export default function IncomeTaxPolicyRegistration() {
                   <Form.Control
                     required
                     type="number"
+                    min={0}
+                    max={100}
+                    name="percent"
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -74,16 +79,16 @@ export default function IncomeTaxPolicyRegistration() {
                 <Button
                   variant="outline-gray-900"
                   onClick={(event) => {
-                    setFormData({
-                      ...formData,
-                      married: {
-                        ...formData.married,
-                        [Object.keys(formData.married).length.toString() + 1]: {
-                          amount: 0,
-                          percent: 0,
-                        },
-                      },
-                    });
+                    // setFormData({
+                    //   ...formData,
+                    //   married: {
+                    //     ...formData.married,
+                    //     [Object.keys(formData.married).length.toString() + 1]: {
+                    //       amount: 0,
+                    //       percent: 0,
+                    //     },
+                    //   },
+                    // });
                   }}
                 >
                   <FontAwesomeIcon icon={faMinus} />
@@ -102,6 +107,77 @@ export default function IncomeTaxPolicyRegistration() {
                     married: {
                       ...formData.married,
                       [Object.keys(formData.married).length.toString() + 1]: {
+                        amount: 0,
+                        percent: 0,
+                      },
+                    },
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </Button>
+            </Col>
+          </Row>
+          <h5>Individual Policy</h5>
+          {Object.keys(formData?.unmarried).map((item) => (
+            <Row>
+              <Col md={5} className="mb-3">
+                <Form.Group>
+                  <Form.Label>Amount</Form.Label>
+                  <Form.Control
+                    required
+                    type="number"
+                    name="amount"
+                    min={0}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={5} className="mb-3">
+                <Form.Group>
+                  <Form.Label>Tax Percent (%)</Form.Label>
+                  <Form.Control
+                    required
+                    type="number"
+                    name="percent"
+                    min={0}
+                    max={100}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col className="mt-4">
+                <Button
+                  variant="outline-gray-900"
+                  onClick={(event) => {
+                    // setFormData({
+                    //   ...formData,
+                    //   married: {
+                    //     ...formData.unmarried,
+                    //     [Object.keys(formData.married).length.toString() + 1]: {
+                    //       amount: 0,
+                    //       percent: 0,
+                    //     },
+                    //   },
+                    // });
+                  }}
+                >
+                  <FontAwesomeIcon icon={faMinus} />
+                </Button>
+              </Col>
+            </Row>
+          ))}
+          <Row>
+            <Col>
+              <Button
+                variant="outline-gray-900"
+                onClick={(event) => {
+                  console.log(formData);
+                  setFormData({
+                    ...formData,
+                    unmarried: {
+                      ...formData.unmarried,
+                      [Object.keys(formData.unmarried).length.toString() + 1]: {
                         amount: 0,
                         percent: 0,
                       },

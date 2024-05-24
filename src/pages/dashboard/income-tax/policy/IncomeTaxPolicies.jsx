@@ -6,7 +6,6 @@ import { Breadcrumb } from "@themesberg/react-bootstrap";
 import IncomeTaxPolicyTable from "./Table";
 
 export default function IncomeTaxPolicy() {
-  console.log("Income tax policies")
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">

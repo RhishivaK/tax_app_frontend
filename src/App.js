@@ -13,7 +13,8 @@ import Registerform from "./components/Register";
 import { ToastContainer } from "react-toastify";
 import UserInfoProvider, { useUserInfo } from "./context/UserInfo";
 import DashboardRoutes from "./pages/DashboardRoutes";
-import BusinessPage from './components/BusinessPage';
+// import BusinessPage from './components/BusinessPage';
+import Home from './pages/Home';
 import "react-datetime/css/react-datetime.css";
 
 function PrivateRoutes() {
@@ -39,9 +40,9 @@ function App() {
       <Routes>
         <Route path="/auth/login" element={<LoginForm />} />
         <Route path="/auth/signup" element={<Registerform />} />
-        <Route exact path={"/business/"} element={<BusinessPage />} />
+        <Route path="/*" element={<Home />} />
         <Route
-          path="/*"
+          path="/dashboard/*"
           element={
             go ? (
               <UserInfoProvider>

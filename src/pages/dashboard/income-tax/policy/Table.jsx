@@ -5,7 +5,7 @@ import {
   faEllipsisH,
   faEye,
   faPlus,
-  faTrashAlt,
+  // faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,28 +27,26 @@ import { authAxios } from "../../../../plugins/axios";
 
 export default function IncomeTaxPolicyTable(props) {
   const [total, setTotal] = React.useState(0);
-  const [users, setUsers] = React.useState([]);
+  const [policies, setPolicies] = React.useState([]);
+  // const handleDelete = (id) => {
+  //   authAxios.delete();
+  // };
+
   const TableRow = (props) => {
-    const {
-      index,
-      fiscal_year,
-      initiate_date,
-      created_at,
-    } = props;
+    const { index, fiscal_year, created_at } = props;
     return (
       <tr>
         <td>{index}</td>
         <td>
           <Card.Link as={Link} to={"/"} className="fw-normal">
-            {fiscal_year}
+            {fiscal_year.label}
           </Card.Link>
         </td>
-
         <td>
-          <span className="fw-normal">{new Date(initiate_date).toLocaleString()}</span>
+          <span className="fw-normal">{fiscal_year.initiate_date}</span>
         </td>
         <td>
-          <span className="fw-normal">{new Date(created_at).toLocaleString()}</span>
+          <span className="fw-normal">{created_at.split("T")[0]}</span>
         </td>
         <td>
           <Dropdown as={ButtonGroup}>
@@ -66,14 +64,17 @@ export default function IncomeTaxPolicyTable(props) {
               <Dropdown.Item>
                 <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
               </Dropdown.Item>
-              <Dropdown.Item
-                href={`income-tax/policy/update/${props.id}`}
-              >
+              <Dropdown.Item href={`update/${props.id}`}>
                 <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
               </Dropdown.Item>
-              <Dropdown.Item className="text-danger">
-                <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
-              </Dropdown.Item>
+              {/* <Dropdown.Item className="text-danger">
+                <FontAwesomeIcon
+                  icon={faTrashAlt}
+                  className="me-2"
+                  onClick={() => handleDelete(parseInt(props.id))}
+                />{" "}
+                Remove
+              </Dropdown.Item> */}
             </Dropdown.Menu>
           </Dropdown>
         </td>
@@ -90,13 +91,13 @@ export default function IncomeTaxPolicyTable(props) {
       .catch((_) => {
         return [];
       });
-  }, []);;
+  }, []);
 
   const loadIncomeTaxPolicies = React.useCallback(async () => {
-    // const data = await getUsers();
-    // setUsers(data.);
-    // setTotal(data.total);
-  }, [getIncomeTaxPolicies, setUsers, setTotal]);
+    const data = await getIncomeTaxPolicies();
+    setPolicies(data.results);
+    setTotal(data.total);
+  }, [getIncomeTaxPolicies, setPolicies, setTotal]);
 
   React.useEffect(() => {
     loadIncomeTaxPolicies();
@@ -121,7 +122,7 @@ export default function IncomeTaxPolicyTable(props) {
               className="mb-3 w-100"
               href="/dashboard/income-tax/policy/register"
               style={{
-                fontSize: '16px'
+                fontSize: "16px",
               }}
             >
               <FontAwesomeIcon icon={faPlus} /> New Policy
@@ -131,7 +132,7 @@ export default function IncomeTaxPolicyTable(props) {
       </div>
       <Card border="light" className="table-wrapper table-responsive shadow-sm">
         <Card.Body className="pt-0">
-          <Table hover className="user-table align-items-center">
+          <Table hover className="income-tax-policies-table align-items-center">
             <thead>
               <tr>
                 <th className="border-bottom">#</th>
@@ -142,7 +143,7 @@ export default function IncomeTaxPolicyTable(props) {
               </tr>
             </thead>
             <tbody>
-              {users.map((t, index) => (
+              {policies.map((t, index) => (
                 <TableRow
                   key={`income-tax-${index}`}
                   {...t}
