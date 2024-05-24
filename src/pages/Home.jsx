@@ -4,6 +4,7 @@ import { authAxios } from "../plugins/axios";
 
 export default function Home() {
   const [showDefault, setShowDefault] = useState(false);
+  const [amount, setAmount] = useState(0);
   const [isGenerated, setIsGenerated] = useState(false);
   const [data, setData] = useState({
     pan: "",
@@ -22,12 +23,14 @@ export default function Home() {
         pan: data.pan,
       })
       .then((res) => {
-        console.log(res);
+        setIsGenerated(true);
+        setAmount(res.data.data.amount)
       })
       .catch((err) => {});
-    setIsGenerated(true);
   };
-  const handlePayment = (event) => {};
+  const handlePayment = (event) => {
+    
+  };
   return (
     <div>
       <h1>Taxes</h1>
@@ -95,6 +98,7 @@ export default function Home() {
                 </Col>
               </Row>
 
+              <h3>Amount: {amount}</h3> 
               <div className="mt-3">
                 <Button
                   variant="primary"

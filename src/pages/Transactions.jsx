@@ -12,7 +12,7 @@ export default function Transaction() {
         <div className="d-block mb-4 mb-md-0">
           <Breadcrumb className="d-none d-md-inline-block" listProps={{ className: "breadcrumb-dark breadcrumb-transparent" }}>
             <Breadcrumb.Item><FontAwesomeIcon icon={faHome} /></Breadcrumb.Item>
-            <Breadcrumb.Item>Volt</Breadcrumb.Item>
+            <Breadcrumb.Item>Tax Application</Breadcrumb.Item>
             <Breadcrumb.Item active>Transactions</Breadcrumb.Item>
           </Breadcrumb>
           <h4>Transactions</h4>
